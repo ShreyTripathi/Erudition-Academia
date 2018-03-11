@@ -61,6 +61,7 @@
 		}
 		finally{
 			try{
+				session.removeAttribute("courseid");
 				st.close();
 			}catch(Exception e){}
 			try{

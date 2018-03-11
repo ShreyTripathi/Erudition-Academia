@@ -7,12 +7,13 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
-	$jQuery.each($(".selected"),function(){
-		$(this).on("click",function(){
-			$("#course").val($(this).html());
-			$("#form1").submit();
+		jQuery.each($(".selected"),function()
+		{
+			$(this).on("click",function(){
+				$("#course").val($(this).html());
+				$("#form1").submit();		
+			});
 		});
-	});
 });
 </script>
 </head>
@@ -34,25 +35,24 @@ $(document).ready(function(){
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
-			rs = st.executeQuery("select * from course");
+			rs = st.executeQuery("select coursename,ffname,flname from course,faculty where course.fuserid=faculty.fuserid");
 			if(rs.next())
 			{
-			%>
+			%>	<form action="discussion_page.jsp" method="get" id="form1">
 				<table>
-				<tr><th>Click on Courses to enter the Forum</th></tr>
+				<tr><th>Click on Course's Name to enter the Forum</th></tr>
 			<%
 				do
 				{%>
-					<tr><td class=".selected"><%=rs.getString("coursename")%></td></tr>
+					<tr><td class=".selected"><%=rs.getString("coursename")%></td><td>By <%=rs.getString("ffname")%> <%=rs.getString("flname")%></td></tr>
 				<%}while(rs.next());
+			%>
+				<tr><td><input type="hidden" name="course" id="course"></td></tr>
 				</table>
+				
+				</form>
 			<%}
 		
-		%>		
-			<form action="discussion_page.jsp" method="get" id="form1">
-				<input type="hidden" name="course_name" id="course">
-			</form>	
-		<%	
 		}catch(Exception e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>

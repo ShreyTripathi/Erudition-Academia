@@ -12,9 +12,7 @@
 
 if(session.getAttribute("uId")==null)
 {
-%>
 	request.getRequestDispatcher("login.jsp").forward(request,response);	
-<%
 }
 if(!session.getAttribute("type").toString().equals("faculty"))
 {

@@ -38,7 +38,8 @@ $(document).ready(function(){
 			st = con.createStatement();
 			rs = st.executeQuery("select course.*,ffname,flname from course,faculty where faculty.fuserid=course.fuserid");
 			session.removeAttribute("courseid");
-			while(rs.next())
+
+			if(rs.next())
 			{
 				%>
 					    <div class="col-md-4">
@@ -51,8 +52,36 @@ $(document).ready(function(){
 					      </div>
 					    </div>
 				<%
+				while(rs.next())
+				{
+					%>
+						    <div class="col-md-4">
+						      <div class="thumbnail">					     						          	<img src="ea.jpeg" alt="Web Dev" style="width:100%">
+						          <div class="caption">
+							    <p style="text-align:right;" class="cId"><%=rs.getString("courseid")%></p>
+						            <p><%=rs.getString("coursename")%></p>
+						            <p><%=rs.getString("ffname")%> <%=rs.getString("flname")%></p>
+						          </div>					     
+						      </div>
+						    </div>
+					<%
 				
-			}//end of while
+				}//end of while
+			}//end of if
+			else{%>
+				<div class="alert alert-warning">There are no quizzes uploaded yet.</div>
+			<%
+				if(session.getAttribute("uId")!=null)
+				{
+				%>
+					<br><a href="stud_dash.jsp">Go Back</a>
+				<%}
+				else
+				{%>
+					<a href="login.jsp">Go Back</a>
+				<%}
+	
+			}
 			%>
 			<form action="course_det_view.jsp" method="get" id="form1">
 			<input type="hidden" name="courseId" id="courseId">

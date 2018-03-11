@@ -7,7 +7,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<jsp:include page="navbar_public.html" />
+<jsp:include page="navbar_public.jsp" />
 <div class="container">
 <%
 		Connection con = null;
@@ -22,34 +22,7 @@
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
 			rs = st.executeQuery("select * from course");
-			session.removeAttribute("courseid");
-			while(rs.next())
-			{
-				if(i%3==0)
-				{%>
-					<div class="row">
-				<%
-				}
-				%>
-					    <div class="col-md-4">
-					      <div class="thumbnail">
-					        <a href="course1.jsp" target="_blank">
-					          <img src="web_dev.jpeg" alt="Web Dev" style="width:100%">
-					          <div class="caption">
-					            <p> “There are three responses to a piece of design – yes, no, and WOW! Wow is the one to aim for.” -Milton Glaser</p>
-					          </div>
-					        </a>
-					      </div>
-					    </div>
-				<%
-				if(i%3==0)
-				{%>
-					</div>
-				<%
-				i++;
-				}
-				%>
-			}
+
 		}catch(Exception e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>
@@ -65,7 +38,6 @@
 			}catch(Exception e){}
 		}
 %>
-</div>
 </div>
 </body>
 </html>
