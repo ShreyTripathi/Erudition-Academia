@@ -1,0 +1,13 @@
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="index.jsp">WebSiteName</a>
+    </div>
+  <div class="container navbar-default"> 
+    <ul class="nav navbar-nav navbar-right">
+	<li><a href="register.jsp">Register</a></li>
+	<li><a href="#">Mock Test</a></li>
+	<li><a href="course_list.jsp">Courses</a></li>
+	<li><a href="login.jsp">Login</a></li>
+    </ul>
+  </div>
+</nav>

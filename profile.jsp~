@@ -1,0 +1,67 @@
+<%@ page import="edp.model.DBConnect,java.io.*"%>
+<html>
+<head>
+<title>Profile</title>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="nav_css.css">
+<script src="nav_js.js"></script>
+</head>
+<body>
+	<jsp:include page="nav_user.html"/>
+	<div class="list-group container">
+	<%
+		Connection con=null;
+		Statement st= null;
+
+		try{
+			String dbName = "eru_acad";
+			String user= "root";
+			String pass= "root";
+			ResultSet rs = null;
+			String uType= session.getAttribute("type").toString().toLower();
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
+			st = con.createStatement();
+
+			int flag=0;
+
+			if(uType.equals("student"))
+			 	rs = st.executeQuery("Select sfname,slname,sdob,gender,graduate,street,city,state from "+uType+" where userId='"+uId+"'");
+			else
+				rs= st.executeQuery("Select ffname,flname,dob,gender,graduate,street,city,state from "+uType+" where userId='"+uId+"'");					
+			while(rs.next())
+			{
+				flag=1;
+				if(uType.equals("student"))
+				{
+					out.println("Name: "+rs.getString("sfname")+" "+rs.getString("slname"));
+					out.println("D.O.B.: "+rs.getDate("sdob").toString());
+				}
+				else
+				{
+					out.println("Name: "+rs.getString("ffname")+" "+rs.getString("flname"));
+					out.println("D.O.B.: "+rs.getDate("dob").toString());
+				}
+				out.println("Gender: "+rs.getString("gender"));
+				out.println("Graduate: "+rs.getString("graduate"));
+				out.println("Address:"+rs.getString("street")+" "+rs.getString("city")+" "+rs.getString("state"));
+			}
+				if(flag==0)
+					out.println("Sorry, this user's details are not present in the database");	
+			
+		}
+		catch(Exception e){e.printStackTrace();%>
+			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database</strong>.</div>
+		<%}
+	%>
+</body>
+</html>
