@@ -36,7 +36,7 @@
                 <div class="panel-heading">
                   <strong>Login</strong>
                 </div>
-                <div class="panel-body">				
+                <div class="panel-body">
 	<form class="form-horizontal" role="form" action="login_logic.jsp" method="POST">
                     <div class="form-group">
 			<label for="userType" class="col-sm-3 control-label">
@@ -52,14 +52,14 @@
                         <label for="inputUserId" class="col-sm-3 control-label">
                             User ID</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" id="inputUserId" placeholder="User Id" name="uId" required="">
+                            <input type="text" class="form-control" id="inputUserId" placeholder="User Id" name="uId" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-3 control-label">
                             Password</label>
                         <div class="col-sm-9">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="pwd" required="">
+                            <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="pwd" required>
                         </div>
                     </div>
 		    <div class="form-group last">
@@ -71,7 +71,7 @@
                         </div>
                 </div>
 		</form>
-	   </div>	
+	   </div>
 	   <div class="panel-footer">
                     Not Registered? <a href="register.jsp">Register here</a></div>
            </div>
