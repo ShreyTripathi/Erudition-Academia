@@ -13,12 +13,12 @@
 	}
 %>
 <div class="container">
-	<jsp:include page="navbar_public.jsp" />
+	<jsp:include page="navbar_faculty.jsp" />
 	<form action="enter_question_logic.jsp" method="post">
 
 	<table>
 		<%if(session.getAttribute("topic_name")!=null){
-	%>	
+	%>
 	<h2><%=session.getAttribute("topic_name").toString()%></h2>
 	<%}
 	 else{
