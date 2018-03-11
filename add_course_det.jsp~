@@ -107,7 +107,7 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 	    <table class="table table-bordered">
 	    <tbody>
 		<tr><td>How to Pass:</td>
-		<td><input type="text" name="pass_crit"></td>
+		<td><input type="text" name="pass_cri"></td>
 		</tr>
 		<tr>
 		<td>

@@ -49,7 +49,7 @@
 				<tr><td></td><td><%=rs.getString("country")%></td></tr>
 
 				<tr><td></td><td></td></tr>				
-				<tr><td><a href="fac_name_list.jsp">Discuss Problem</a></td></tr>
+				<tr><td><a href="list_for_discussion.jsp">Discuss Problems About Courses</a></td></tr>
 		
 			<%}
 			
