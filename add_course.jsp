@@ -11,19 +11,19 @@
 	{
 		response.sendRedirect("login.jsp");
 	}
-	
+
 %>
 <div class="container">
-	<jsp:include page="navbar_public.jsp" />
+	<jsp:include page="navbar_faculty.jsp" />
 	<form action="add_course_logic.jsp" method="post">
 
 	<table>
-	<tr><td>Course Id: </td><td><input type="text" name="course_id" required></td></tr>
-	<tr><td>Course Name: </td><td><input type="text" name="course_name" required></td></tr>
-	<tr><td>Start Date: </td><td><input type="date" name="sdate" required></td></tr>
-	<tr><td>Finish Date: </td><td><input type="date" name="edate" required></td></tr>
-	<tr><td>Duration: </td><td><input type="text" name="duration" required></td></tr>
-	<tr><td>Fee (In Rupees): </td><td><input type="text" name="fee" required></td></tr>
+	<tr><td>Course Id  : </td><td><input type="text" name="course_id" required></td></tr>
+	<tr><td>Course Name  : </td><td><input type="text" name="course_name" required></td></tr>
+	<tr><td>Start Date : </td><td><input type="date" name="sdate" required></td></tr>
+	<tr><td>Finish Date  : </td><td><input type="date" name="edate" required></td></tr>
+	<tr><td>Duration : </td><td><input type="text" name="duration" required></td></tr>
+	<tr><td>Fee (In Rupees)  : </td><td><input type="text" name="fee" required></td></tr>
 		<tr><td><input type="submit" value="submit quiz"></td></tr>
 	</table>
 	</form>
