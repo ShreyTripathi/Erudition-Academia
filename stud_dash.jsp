@@ -6,6 +6,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<title>DashBoard</title>
 <body>
 <div class="container">
 	<jsp:include page="navbar_public.jsp" />
@@ -27,7 +28,9 @@
 
 		Connection con = null;
 		Statement st = null;
+		Statement st1 = null;
 		ResultSet rs = null;
+		ResultSet rs1 = null;
 		try{	
 			
 			String uType = session.getAttribute("type").toString();
@@ -49,10 +52,34 @@
 				<tr><td></td><td><%=rs.getString("country")%></td></tr>
 
 				<tr><td></td><td></td></tr>				
-				<tr><td><a href="list_for_discussion.jsp">Discuss Problems About Courses</a></td></tr>
+				
+				</table>
 		
 			<%}
-			
+			%>
+			<hr>
+			<%
+				st1 = con.createStatement();
+				rs1= st.executeQuery("Select coursename from feedback where suserid='"+uId+"'");
+				if(rs1.next())
+				{
+			%>
+				<h2>Feed Backs Given to</h2>
+				<table>
+				<tr><th>Course Names</th></tr>
+				<%
+				do{
+				%>
+				<tr><td><%=rs1.getString("coursename")%></td></tr>
+				<%
+				}while(rs1.next());	
+				%>			
+				</table>
+				
+			<%	}
+			%>
+			<a href="feedback_form.jsp">Give FeedBack</a>
+		<%
 		}catch(Exception e){
 		%>
 				<tr><td><div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div></td></tr>
