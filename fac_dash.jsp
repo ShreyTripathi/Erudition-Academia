@@ -30,7 +30,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="container">
-	<jsp:include page="navbar_public.jsp" />
+	<jsp:include page="navbar_faculty.jsp" />
 <%
 		if(session.getAttribute("type")==null||session.getAttribute("uId")==null)
 		{
@@ -39,6 +39,10 @@ $(document).ready(function(){
 		else if(session.getAttribute("type").toString().equals("student"))
 		{
 			request.getRequestDispatcher("stud_dash.jsp").forward(request,response);
+		}
+		if(session.getAttribute("courseid")!=null)
+		{
+			session.removeAttribute("courseid");
 		}
 %>
 		<h1>Faculty Dashboard</h1>
@@ -59,6 +63,7 @@ $(document).ready(function(){
 			
 			String uType = session.getAttribute("type").toString();
 			String uId = session.getAttribute("uId").toString();
+
 
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
@@ -82,13 +87,11 @@ $(document).ready(function(){
 				<tr><td></td><td><%=rs.getString("country")%></td></tr>
 
 				<tr><td></td><td></td></tr>				
-				<tr><td><a href="enter_question.jsp">Create Quiz</a></td></tr>
-				<tr><td><a href="add_course.jsp">Add a New Course</a></td></tr>
 				</table>
 				<hr>
 				<%if(rs2.next()){%>
 					<h2>Added Courses List</h2>
-					<form action="add_course_det.jsp" method="get" id="form1">
+				
 					<table>
 					<%
 					do
@@ -97,9 +100,7 @@ $(document).ready(function(){
 					<%}while(rs2.next());
 				}
 				%>
-				<input type="hidden" id="c_name" name="c_name">
-				</table>
-				</form>
+					</table>
 <%				if(rs1.next())
 				{%>	
 					<hr>
@@ -121,6 +122,7 @@ $(document).ready(function(){
 		}catch(Exception e){
 		%>		<table>
 				<tr><td><div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div></td></tr>
+				</table>			
 		<%
 			out.println(e);
 		}
@@ -136,7 +138,7 @@ $(document).ready(function(){
 			}catch(Exception e){}
 		}
 %>
-</table>
+
 </div>
 </body>
 </html>

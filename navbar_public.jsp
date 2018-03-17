@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default">
     <div class="navbar-header">
-      <a class="navbar-brand" href="index.jsp">ERUDITION ACADEMIA</a>
+      <a class="navbar-brand" href="login.jsp">ERUDITION ACADEMIA</a>
     </div>
   <div class="container navbar-default"> 
     <ul class="nav navbar-nav navbar-right">

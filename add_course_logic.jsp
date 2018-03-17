@@ -29,7 +29,7 @@
 			st = con.createStatement();
 			int i = st.executeUpdate("insert into course(courseid,coursename,sdate,edate,duration,fee,fuserid) values('"+c_id+"','"+c_name+"','"+sdate+"','"+edate+"','"+duration+"','"+fee+"','"+fuserid+"')");
 				session.setAttribute("courseid",c_id);
-				request.getRequestDispatcher("add_course_det.jsp").forward(request,response);
+				response.sendRedirect("add_course_det.jsp");
 			
 		}catch(Exception e){
 		%>

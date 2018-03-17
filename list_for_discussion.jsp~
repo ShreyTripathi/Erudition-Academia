@@ -47,7 +47,7 @@ $(document).ready(function(){
 					<tr><td class=".selected"><%=rs.getString("coursename")%></td><td>By <%=rs.getString("ffname")%> <%=rs.getString("flname")%></td></tr>
 				<%}while(rs.next());
 			%>
-				<tr><td><input type="hidden" name="course_name" id="course"></td></tr>
+				<tr><td><input type="hidden" name="course" id="course"></td></tr>
 				</table>
 				
 				</form>

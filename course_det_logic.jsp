@@ -9,7 +9,7 @@
 <body>
 <%
 		Connection con = null;
-		Statement st = null;
+		Statement st = null,st1=null;
 		ResultSet rs = null;
 
 		String dbName = "modif_eru_acad";
@@ -24,7 +24,7 @@
 		String u4 = request.getParameter("unit4-info").trim();
 		String pass_cri = request.getParameter("pass_cri").trim();
 		String lang = request.getParameter("lang").trim();
-		int i=1;
+
 		if(u1.equals(""))
 			u1="null";
 		if(u2.equals(""))
@@ -41,8 +41,11 @@
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
+			st1 =con.createStatement();
 			int i = st.executeUpdate("insert into course_det values('"+c_id+"','"+info+"','"+u1+"','"+u2+"','"+u3+"','"+u4+"','"+pass_cri+"','"+lang+"')");
-			request.getRequestDispatcher("fac_dash.jsp").forward(request,response);		
+			rs = st1.executeQuery("Select coursename from course where courseid='"+c_id+"'");
+				response.sendRedirect("file_upload.jsp");
+		
 		}catch(Exception e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>
@@ -50,7 +53,6 @@
 			out.println(e);
 		}
 		finally{
-			session.removeAttribute("courseid");
 			try{
 				st.close();
 			}catch(Exception e){}

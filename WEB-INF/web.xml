@@ -26,14 +26,28 @@
   <description>
      Welcome to Tomcat
   </description>
-
-<servlet>
-<servlet-class>complaint.controllers.login.LoginServlet</servlet-class>
-<servlet-name>Login</servlet-name>
-</servlet>
-
-<servlet-mapping>
-<servlet-name>Login</servlet-name>
-<url-pattern>/LoginServlet</url-pattern>
-</servlet-mapping>
+  <servlet>
+   <servlet-name>Testing</servlet-name>
+   <servlet-class>TestingServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <url-pattern>/testing</url-pattern>
+   <servlet-name>Testing</servlet-name>
+  </servlet-mapping>
+  <servlet>
+   <servlet-name>FileUpload</servlet-name>
+   <servlet-class>FileUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>FileUpload</servlet-name>
+   <url-pattern>/fileuploadexample</url-pattern>
+  </servlet-mapping>
+  <servlet>
+   <servlet-name>pdfServlet</servlet-name>
+   <servlet-class>PdfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>pdfServlet</servlet-name>
+   <url-pattern>/content.pdf</url-pattern>
+  </servlet-mapping>
 </web-app>

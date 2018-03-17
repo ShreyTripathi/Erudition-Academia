@@ -17,6 +17,7 @@ $(document).ready(function(){
 	});
 });
 </script>
+<title>Course List</title>
 </head>
 <body>
 <div class="container">
@@ -43,7 +44,8 @@ $(document).ready(function(){
 			{
 				%>
 					    <div class="col-md-4">
-					      <div class="thumbnail">					     					          	<img src="ea.jpeg" alt="Web Dev" style="width:100%">
+					      <div class="thumbnail">					     					         
+						<img src="ea.jpeg" alt="Erudition Academia" style="width:100%">
 					          <div class="caption">
 						    <p style="text-align:right;" class="cId"><%=rs.getString("courseid")%></p>
 					            <p><%=rs.getString("coursename")%></p>
@@ -56,7 +58,8 @@ $(document).ready(function(){
 				{
 					%>
 						    <div class="col-md-4">
-						      <div class="thumbnail">					     						          	<img src="ea.jpeg" alt="Web Dev" style="width:100%">
+						      <div class="thumbnail">				
+						        <img src="ea.jpeg" alt="Erudition Academia" style="width:100%">
 						          <div class="caption">
 							    <p style="text-align:right;" class="cId"><%=rs.getString("courseid")%></p>
 						            <p><%=rs.getString("coursename")%></p>
@@ -69,7 +72,7 @@ $(document).ready(function(){
 				}//end of while
 			}//end of if
 			else{%>
-				<div class="alert alert-warning">There are no quizzes uploaded yet.</div>
+				<div class="alert alert-warning">There are no courses uploaded yet.</div>
 			<%
 				if(session.getAttribute("uId")!=null)
 				{

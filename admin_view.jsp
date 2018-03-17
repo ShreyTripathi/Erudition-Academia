@@ -34,13 +34,13 @@
 				rs = st.executeQuery("select * from student");
 				int i=0;
 			%>
-				<table>
+				<table class="table">
 			<%	while(rs.next())
 				{
 					if(i==0)
 					{i++;%>
 					<tr><th>Parameter</th><th>Value</th></tr>
-					<%}else{%>
+					<%}%>
 					<tr><td></td><td>User ID: </td><td><%=rs.getString("suserid")%></td></tr>
 					<tr><td></td><td>User Name: </td> <td><%=rs.getString("sfname")%> <%=rs.getString("slname")%></td></tr>
 					<tr><td></td><td>Date Of Birth: </td><td><%=rs.getString("sdob")%></td></tr>
@@ -49,7 +49,7 @@
 					<tr><td></td><td>Address: </td><td><%=rs.getString("street")%> <%=rs.getString("city")%> <%=rs.getString("state")%> <%=rs.getString("country")%></td></tr>
 					<tr><td></td><td>Email: </td><td><%=rs.getString("email_id")%></td></tr>
 					
-				<%	}
+				<%	
 				}
 			%>
 				</table>
@@ -60,7 +60,7 @@
 				rs = st.executeQuery("select * from faculty");
 				int i=0;
 			%>
-				<table>
+				<table class="table">
 			<%	while(rs.next())
 				{
 					if(i==0)

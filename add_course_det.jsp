@@ -12,11 +12,11 @@
 
 if(session.getAttribute("uId")==null)
 {
-	request.getRequestDispatcher("login.jsp").forward(request,response);	
+	response.sendRedirect("login.jsp");	
 }
 if(!session.getAttribute("type").toString().equals("faculty"))
 {
-	request.getRequestDispatcher("stud_dash.jsp").forward(request,response);	
+	response.sendRedirect("stud_dash.jsp");	
 }
 %>
 <jsp:include page="navbar_public.jsp" />

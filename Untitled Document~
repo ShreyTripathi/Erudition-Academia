@@ -5,10 +5,22 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function(){
+	$(".toclick").each(function(){
+		$(this).on("click",function(){
+			
+			$().val($().html());
+			$().submit();
+		});
+	});
+});
+</script>
 </head>
 <body>
 <jsp:include page="navbar_public.jsp" />
 <div class="container">
+<h1>List of Courses Present</h1>
 <%
 		Connection con = null;
 		Statement st = null;
@@ -16,12 +28,29 @@
 		String dbName = "modif_eru_acad";
 		String user= "root";
 		String pass= "root";
-		int i=0;			
+
+		int i=0;	
+
 		try{	
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
 			rs = st.executeQuery("select * from course");
+			if(rs.next())
+			{
+			%>
+				<form action="" method="get" id="form1">
+				<table>
+				<tr><th>List of Courses to Give FeedBack</th></tr>
+			<%
+				do
+				{%>
+					<tr><td class="toselect"><%=rs.getString("courseid")%></td><td><%=rs.getString("coursename")%></td><td><button class="toclick"></td></tr>
+				<%}while(rs.next());
+				<input type="hidden" name="course_name" id="course">				
+				</table>
+				</form>	
+			<%}
 
 		}catch(Exception e){
 		%>

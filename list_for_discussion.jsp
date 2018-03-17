@@ -41,6 +41,7 @@ $(document).ready(function(){
 			%>	<form action="discussion_page.jsp" method="get" id="form1">
 				<table>
 				<tr><th>Click on Course's Name to enter the Forum</th></tr>
+				<tr><td class=".selected"><%=rs.getString("coursename")%></td><td>By <%=rs.getString("ffname")%> <%=rs.getString("flname")%></td></tr>
 			<%
 				do
 				{%>
@@ -49,7 +50,6 @@ $(document).ready(function(){
 			%>
 				<tr><td><input type="hidden" name="course" id="course"></td></tr>
 				</table>
-				
 				</form>
 			<%}
 		

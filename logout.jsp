@@ -3,6 +3,6 @@
 	<%
 		if(session !=null)
 			session.invalidate();
-		request.getRequestDispatcher("index.jsp").forward(request,response);
+		request.getRequestDispatcher("login.jsp").forward(request,response);
 	%>
 </html>

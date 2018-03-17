@@ -41,7 +41,7 @@ $(document).ready(function(){
 		if(rs.next())
 		{
 		%>
-			<form action="quiz.jsp" method="get" id="form1">
+			<form action="/fetch_quiz" method="get" id="form1">
 			<table>		
 			<tr><td>Topics for Quiz:</td></tr>	
 			<tr><td></td><td class="selected"><%=rs.getString("topic_name")%></td></tr>
