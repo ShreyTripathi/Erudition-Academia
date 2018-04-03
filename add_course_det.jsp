@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Add Course Details</title>
 </head>
 <body>
 <div class="container">
@@ -12,11 +13,11 @@
 
 if(session.getAttribute("uId")==null)
 {
-	response.sendRedirect("login.jsp");	
+	response.sendRedirect("login.jsp");
 }
 if(!session.getAttribute("type").toString().equals("faculty"))
 {
-	response.sendRedirect("stud_dash.jsp");	
+	response.sendRedirect("stud_dash.jsp");
 }
 %>
 <jsp:include page="navbar_public.jsp" />
@@ -65,47 +66,47 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 	<hr>
 	<form action="course_det_logic.jsp" method="post">
 	<p>Add Some info:</p>
-	<input type="text" name="det" />
+	<textarea rows="2" cols="60" name="det" /></textarea>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">      
+	      	<h4 class="panel-title">
 	      	  Unit 1
 	     	 </h4>
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit1:<input type="text" name="unit1-info">
+	    	<div class="panel-body">Enter some info about unit1:<textarea rows="3" cols="50" name="unit1-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">      
+	      	<h4 class="panel-title">
 	      	  Unit 2
 	     	 </h4>
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit2:<input type="text" name="unit2-info">
+	    	<div class="panel-body">Enter some info about unit2:<textarea rows="3" cols="50" name="unit2-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">      
-	      	  Unit 3
+	      	<h4 class="panel-title">
 	     	 </h4>
+         Unit 3
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit3:<input type="text" name="unit3-info">
+	    	<div class="panel-body">Enter some info about unit3:<textarea rows="3" cols="50" name="unit3-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">      
+	      	<h4 class="panel-title">
 	      	  Unit 4
 	     	 </h4>
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit 4:<input type="text" name="unit4-info">
+	    	<div class="panel-body">Enter some info about unit 4:<textarea rows="3" cols="50" name="unit4-info"></textarea>
 		</div>
 	    </div>
 	    <table class="table table-bordered">
 	    <tbody>
 		<tr><td>How to Pass:</td>
-		<td><input type="text" name="pass_cri"></td>
+		<td><input type="text" size="50" name="pass_cri"></td>
 		</tr>
 		<tr>
 		<td>

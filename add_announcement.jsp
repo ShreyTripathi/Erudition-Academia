@@ -6,51 +6,46 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<style>
+#mynav{
+  background-color: #f00;
+}
+#navright li a{
+  color: #fff;
+  font-size: 1.4em;
+}
+#mylogo{
+  color: #fff;
+  font-size:1.4em;
+}
+</style>
 <body>
-  <%
+<%
 		Connection con = null;
-		Statement st = null,st1=null;
+		Statement st = null;
 		ResultSet rs = null;
-
 		String dbName = "modif_eru_acad";
 		String user= "root";
 		String pass= "root";
 
-		String c_id = session.getAttribute("courseid").toString();
-		String info = request.getParameter("det").trim();
-		String u1 = request.getParameter("unit1-info").trim();
-		String u2 = request.getParameter("unit2-info").trim();
-		String u3 = request.getParameter("unit3-info").trim();
-		String u4 = request.getParameter("unit4-info").trim();
-		String pass_cri = request.getParameter("pass_cri").trim();
-		String lang = request.getParameter("lang").trim();
-
-		if(u1.equals(""))
-			u1="null";
-		if(u2.equals(""))
-			u2 = "null";
-		if(u3.equals(""))
-		{
-			u3 = "null";
-		}
-		if(u4.equals(""))
-		{
-			u4 = "null";
-		}
+    String heading = request.getParameter("heading");
+    String courseId = request.getParameter("courseId");
+    String dated = request.getParameter("dated");
+    String content = request.getParameter("content");
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
-			st1 =con.createStatement();
-			int i = st.executeUpdate("insert into course_det values('"+c_id+"','"+info+"','"+u1+"','"+u2+"','"+u3+"','"+u4+"','"+pass_cri+"','"+lang+"')");
-			rs = st1.executeQuery("Select coursename from course where courseid='"+c_id+"'");
-				response.sendRedirect("file_upload.jsp");
-
+			int i = st.executeUpdate("insert into announcement(courseid,heading,content,dated) values('"+courseId+"','"+heading+"','"+content+"','"+dated+"')");
+			response.sendRedirect("announcement_ops.jsp?courseId=<%courseId%>");
 		}catch(Exception e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>
 		<%
 			out.println(e);
+		%>
+			<div> <a href="add_course.jsp">Go Back</a></div>
+		<%
 		}
 		finally{
 			try{

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Quiz List</title>
+  <title>PDF Content in the Course</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -75,11 +75,11 @@
   				$("#videoForm").submit();
   			});
   		});
-      jQuery.each($(".topicSelect"),function()
+      jQuery.each($(".pdfSelect"),function()
   		{
   			$(this).on("click",function(){
-  				$("#topicId").val($(this).parent().children(':first-child').html());
-  				$("#topicForm").submit();
+  				$("#pdfFile").val($(this).parent().children(':first-child').html());
+  				$("#pdfForm").submit();
   			});
   		});
   });
@@ -90,11 +90,11 @@
 <!--create connection and calling ResultSet for later use-->
 <%!
 Connection con = null;
-Statement quizSt = null,videoSt=null;
+Statement pdfSt = null,videoSt=null;
 //,st3=null,st4=null;
 
 //rs for course info,pdfRs for pdf and rs2 for video
-ResultSet quizRs=null,videoRs=null;
+ResultSet pdfRs=null,videoRs=null;
 //,rs2=null,rs3=null,rs4=null;
 
 String dbName = "modif_eru_acad";
@@ -107,10 +107,10 @@ try{
   Class.forName("com.mysql.jdbc.Driver");
   con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 
-  quizSt = con.createStatement();
+  pdfSt = con.createStatement();
   videoSt = con.createStatement();
 
-  quizRs = quizSt.executeQuery("select topicid,topicname,lastdate from topic where topic.courseid='"+courseId+"'");
+  pdfRs = pdfSt.executeQuery("select filename,filetitle,unitname from content where courseid='"+courseId+"' and filetype='pdf' order by unitname");
   videoRs = videoSt.executeQuery("select * from content where courseid='"+courseId+"' and filetype='video' order by unitname");
   int i=1,flag=0;
   %>
@@ -142,6 +142,7 @@ try{
   <div class="container-fluid">
   <jsp:include page="navbar_public.jsp" />
   </div>
+
   <div class="container-fluid" style="font-size:1.4em">
   <nav class="navbar navbar-default">
     <div class="container">
@@ -179,27 +180,26 @@ try{
 
   <!--Center div starts here-->
     <div class="col-sm-8 text-center main_text">
-    <h1>Quiz Topics</h1>
+    <h1>Content List</h1>
     <hr>
       <%
-	if(quizRs.next())
+	if(pdfRs.next())
 	{%>
           <table class="table table-bordered" style="font-size:1.4em">
           <thead>
-          <tr><th>Topic Name</th><th>Last Date</th></tr>
+          <tr><th>File Name</th><th>Unit Name</th></tr>
           </thead>
          <tbody>
          <%do{%>
-					<tr><td hidden><%=quizRs.getString("topicid")%></td><td class="topicSelect" style="background-color:#ada;"><%=quizRs.getString("topicname")%></td><%=quizRs.getString("lastdate")%></tr>
-          <%}while(quizRs.next());
+					<tr><td hidden><%=pdfRs.getString("filename")%></td><td class="pdfSelect"><%=pdfRs.getString("filetitle")%></td><td><%=pdfRs.getString("unitname")%></td></tr>
+          <%}while(pdfRs.next());
   }
-  else{out.println("<div class='alert-info'>No Quizez yet uploaded</div>");}
+  else{out.println("<div class='alert-info'>No Content yet in this course</div>");}
           %>
           </tbody>
 					</table>
-				<form action="/nextQues" method="post" id="topicForm">
-        <input type="hidden" name="courseId" value="<%=courseId%>">
-				<input type="hidden" name="topicId" id="topicId">
+				<form action="/content.pdf" method="post" id="pdfForm">
+				<input type="hidden" name="fileName" id="pdfFile">
 				</form>
       <hr>
     <%
@@ -212,7 +212,7 @@ try{
 		}
 		finally{
 			try{
-				quizSt.close();
+				pdfSt.close();
 			}catch(Exception e){}
 			try{
 				con.close();

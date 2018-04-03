@@ -1,9 +1,11 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default" id="mynav" style="font-size:1.2em">
+ <div class="container">
     <div class="navbar-header">
-      <a class="navbar-brand" href="login.jsp">ERUDITION ACADEMIA</a>
+      <a class="navbar-brand" href="login.jsp" id="mylogo"><b>ERUDITION ACADEMIA</b></a>
     </div>
-  <div class="container navbar-default"> 
-    <ul class="nav navbar-nav navbar-right">
+  <div class="navbar-default">
+    <ul class="nav navbar-nav navbar-right" id="navright">
+  <li><a href="my_course_list.jsp">View Courses</a></li>
 	<li><a href="enter_question.jsp">Create Test</a></li>
 	<li><a href="add_course.jsp">Add Course</a></li>
 	<%if(session.getAttribute("uId")==null){%>
@@ -22,4 +24,5 @@
 	%>
     </ul>
   </div>
+ </div>
 </nav>

@@ -1,8 +1,11 @@
-.navbar-brand
-{
-   font-size: 2em;
+#mynav{
+  background-color: #00f;
 }
-.nav li
-{
-   font-size: 1.2em;
+#navright li a{
+  color: #fff;
+  font-size: 1.4em;
+}
+#mylogo{
+  color: #fff;
+  font-size:1.7em;
 }

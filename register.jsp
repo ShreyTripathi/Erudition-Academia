@@ -41,7 +41,7 @@
                                   </label>
                                 </td>
                                 <td>
-                                  <input type="text" name="userid" required></td>
+                                  <input type="text" name="userid" autocomplete="randomstring" required></td>
                                 </tr>
                                 <tr>
                                   <td>
@@ -49,7 +49,7 @@
                                     </label>
                                   </td>
                                   <td>
-                                    <input type="password" name="pass" required></td>
+                                    <input type="password" name="pass" autocomplete="randomstring" required></td>
                                   </tr>
                                   <tr>
                                     <td>

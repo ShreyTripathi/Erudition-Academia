@@ -17,7 +17,7 @@ public class PdfServlet extends HttpServlet {
 
 	String dbName = "modif_eru_acad";
 	String user="root";
-	String pwd="root";
+	String pass="root";
 	
 	String path="";		//it will contain the complete path of the pdf file
 	String fileName="";	//the name of the file to be opened
@@ -40,7 +40,7 @@ public class PdfServlet extends HttpServlet {
 		{
 			response.sendRedirect("error.jsp");
 		}
-		if(c_id==null||cid.equals("")||c_id.equals("null"))
+		if(c_id==null||c_id.equals("")||c_id.equals("null"))
 			response.sendRedirect("servlet_error.jsp");
 
 		File file = new File(path);

@@ -11,7 +11,7 @@
 <div class="container">
 	<jsp:include page="navbar_faculty.jsp" />
     <%
-	
+
 	if(session.getAttribute("type")==null||session.getAttribute("uId")==null)
 	{
 		response.sendRedirect("login.jsp");
@@ -32,23 +32,26 @@
 	String c_id = session.getAttribute("courseid").toString();
 	String path = session.getAttribute("fPath").toString();
 	String fName = session.getAttribute("fName").toString();
-	
-	if(unitName==null|| c_id==null||path==null||fName==null)
+  String fType = session.getAttribute("fType").toString();
+  String fTitle = session.getAttribute("fTitle").toString();
+
+	if(unitName==null|| c_id==null||path==null||fName==null||fType==null||fTitle==null)
 		response.sendRedirect("error.jsp");
 
 	String sendpage="";//set the page where the control will be transferred to.
-	
+
 	//Now Inserting data into the content table
 	try{
 		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 		st = con.createStatement();
-		int i = st.executeUpdate("insert into content(courseid,unitname,path,filename) values('"+c_id+"','"+unitName+"','"+path+"','"+fName+"')");
+		int i = st.executeUpdate("insert into content(courseid,unitname,path,filename,filetype,filetitle) values('"+c_id+"','"+unitName+"','"+path+"','"+fName+"','"+fType+"','"+fTitle+"')");
 		sendpage="file_upload.jsp";
 		session.removeAttribute("fPath");
 		session.removeAttribute("unit");
 		session.removeAttribute("fName");
-
+    session.removeAttribute("fType");
+    session.removeAttribute("fTitle");
 	}//end of try
 
 	catch(Exception e){sendpage="error.jsp";}

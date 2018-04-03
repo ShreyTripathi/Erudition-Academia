@@ -10,8 +10,8 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="index_css.css">
-
+<link rel="stylesheet" href="index_css.css" />
+<link rel="stylesheet" href="nav_css.css"/>
 </head>
 <body>
 <%
@@ -19,17 +19,19 @@
 	{
 		if(session.getAttribute("type").toString().equals("faculty"))
 		{
-			request.getRequestDispatcher("fac_dash.jsp").forward(request,response);
+			response.sendRedirect("fac_dash.jsp");
 		}
 		if(session.getAttribute("type").toString().equals("student"))
 		{
-			request.getRequestDispatcher("stud_dash.jsp").forward(request,response);
+			response.sendRedirect("stud_dash.jsp");
 		}
 	}
 %>
 <!--Form to be submitted to the login Servlet-->
-<div class="container">
+<div class="container-fluid">
 <jsp:include page="navbar_public.jsp" />
+</div>
+<div class="container" style="font-size:1.2em">
     <div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">

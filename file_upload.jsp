@@ -7,9 +7,25 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>File Upload</title>
 </head>
+<style>
+#mynav{
+  background-color: #00f;
+}
+#navright li a{
+  color: #fff;
+  font-size: 1.4em;
+}
+#mylogo{
+  color: #fff;
+  font-size:1.7em;
+}
+</style>
 <body>
+  <div class="container-fluid">
+  <jsp:include page="navbar_faculty.jsp" />
+  </div>
 <div class="container">
-	<jsp:include page="navbar_faculty.jsp" />
+
     <%
 	if(session.getAttribute("type")==null||session.getAttribute("uId")==null)
 	{
@@ -19,6 +35,14 @@
 	{
 		response.sendRedirect("stud_dash.jsp");
 	}
+
+//in order to add files to courses later
+  if(request.getParameter("courseId")!=null)
+  {
+    String c_id = request.getParameter("courseId");
+    session.setAttribute("courseid",c_id);
+  }
+
 	String dbName = "modif_eru_acad";
 	String user= "root";
 	String pass= "root";
@@ -27,8 +51,8 @@
 	Statement st = null;
 	ResultSet rs = null;
 
-	try{	
-			
+	try{
+
 		String uType = session.getAttribute("type").toString();
 		String uId = session.getAttribute("uId").toString();
 		String c_id= session.getAttribute("courseid").toString();
@@ -44,50 +68,41 @@
 			session.removeAttribute("fPath");
 			session.removeAttribute("unit");
 			session.removeAttribute("fName");
+      session.removeAttribute("fTitle");
+      session.removeAttribute("fType");
 		}
 
 		if(rs.next())
-		{	
-     %> 
-	<h1>SELECT FILES FOR THE UNITS BEING TAUGHT IN THE COURSE:<br><%=rs.getString("coursename")%></h1>
+		{
+     %>
+	<h1>SELECT FILES FOR THE UNITS BEING TAUGHT IN THE COURSE:<%=rs.getString("coursename")%></h1>
+  <hr>
         <form action="/fileuploadexample" method="post" enctype="multipart/form-data">
-           <table>	    
-	    <tr><th><label for="fileName1">Select File for UNIT 1: </label></th></tr>
-            <tr><td><input id="fileName1" type="file" name="unit1" size="30"/></td></tr>            
-            <tr><td><input type="hidden" name="unitName" value="unit1"/></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload"/></td></tr>
-	   </table>
+            <table class="table">
+            <tr><td><label for="unitName">Select Unit: </label></td></tr>
+            <tr><td><select name="unitName"/>
+                    <option value="unit1">Unit 1</option>
+                    <option value="unit2">Unit 2</option>
+                    <option value="unit3">Unit 3</option>
+                    <option value="unit4">Unit 4</option>
+                  </select>
+            </td></tr>
+            <tr><td><label for="fileType">Select File Type: </label></td></tr>
+            <tr><td><select name="fileType"/>
+                    <option value="video">Video</option>
+                    <option value="pdf">PDF</option>
+                  </select>
+            </td></tr>
+            <tr><td><label for="fTitle">Enter Title for File:(Please Ensure that videos should be in <strong>MP4</strong> format) </label></td></tr>
+            <tr><td><input type="text" name="fTitle" required></td></tr>
+	          <tr><td><label for="fileName1">Select File: </label></td></tr>
+            <tr><td><input id="fileName1" type="file" name="fileName" size="30" required></td></tr>
+            <tr><td><input type="submit" value="Upload"/></td></tr>
+	          </table>
         </form>
-	<form action="/fileuploadexample" method="post" enctype="multipart/form-data">
-           <table>
-            
-	    <tr><th><label for="fileName2">Select File for UNIT 2:</label></th></tr>
-            <tr><td><input id="fileName2" type="file" name="unit2" size="30"/></td></tr>
-            <tr><td><input type="hidden" name="unitName" value="unit2"/></td></tr>            
-            <tr><td></td><td><input type="submit" value="Upload"/></td></tr>
-	   </table>
-        </form>
-	<form action="/fileuploadexample" method="post" enctype="multipart/form-data">
-           <table>
-            
-	    <tr><th><label for="fileName3">Select File for UNIT 3:</label></th></tr>
-            <tr><td><input type="hidden" name="unitName" value="unit3"/></td></tr>
-            <tr><td><input id="fileName3" type="file" name="unit3" size="30"/></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload"/></td></tr>
-	   </table>
-        </form>
-	<form action="/fileuploadexample" method="post" enctype="multipart/form-data">
-	   <table>
-            
-            <tr><th><label for="fileName4">Select File for UNIT 4:</label></th></tr>
-            <tr><td><input type="hidden" name="unitName" value="unit4"/></td></tr>
-            <tr><td><input id="fileName4" type="file" name="unit4" size="30"/></td></tr>       
-            <tr><td></td><td><input type="submit" value="Upload"/></td></tr>
-	   </table>
-        </form>
-	<a href="fac_dash.jsp"><button type="submit">Done</button>
+	<a href="fac_dash.jsp"><button type="submit">No More File To Submit</button>
 	</a>
-     <% 
+     <%
 		}
 		else{%>
 			<div>Something is Fishy. </div>
@@ -103,7 +118,7 @@
 		finally{
 			try{
 				st.close();
-	
+
 			}catch(Exception e){}
 			try{
 				con.close();

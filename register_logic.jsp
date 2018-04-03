@@ -29,7 +29,7 @@
 		Statement st = null;
 		ResultSet rs = null;
 		int i;
-		try{	
+		try{
 			String dbName = "modif_eru_acad";
 			String user= "root";
 			String password= "root";
@@ -38,14 +38,13 @@
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,password);
 			st = con.createStatement();
 			if(utype.equals("faculty"))
-			{			
+			{
 				rs = st.executeQuery("Select * from faculty where fuserid='"+uid+"'");
 				if(rs.next()){
 				%>
 					<div class = "container">
 					<div class="alert alert-danger">User Id already exists.</div>
 					<a href="register.jsp">Register Again</a>
-					</a>
 					</div>
 				<%
 				}
@@ -57,15 +56,19 @@
 					session.setAttribute("type",utype);
 					response.sendRedirect("fac_dash.jsp");
 				}
-		        }
+		  }
 			else
 			{
 				rs = st.executeQuery("Select * from student where suserid='"+uid+"'");
-				if(rs.next()){%>
-					<div class="alert alert-danger">User already exists.</div>
+				if(rs.next())
+        {%>
+          <div class = "container">
+					<div class="alert alert-danger">User Id already exists.</div>
+					<a href="register.jsp">Register Again</a>
+					</div>
 				<%
 				}
-				else{			
+				else{
 				i = st.executeUpdate("insert into student values('"+uid+"','"+pass+"','"+ufName+"','"+ulName+"','"+dob+"','"+gender+"','"+grad+"','"+street+"','"+city+"','"+state+"','"+country+"','"+zipcode+"','"+email_id+"','"+phoneno+"')");
 
 					session.setAttribute("uId",uid);

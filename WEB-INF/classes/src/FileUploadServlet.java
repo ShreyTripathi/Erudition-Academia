@@ -30,27 +30,29 @@ public class FileUploadServlet extends HttpServlet {
   String pass= "root";
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-             throws ServletException, IOException 
+             throws ServletException, IOException
   {
 	String done = "";
 	String unitName ="";
 	HttpSession session = request.getSession();
 	String page="";
 	String sName="";
+  String fType="";
+  String fTitle="";
 
 	boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-  
+
        if (isMultipart) {
           // Create a factory for disk-based file items
           FileItemFactory factory = new DiskFileItemFactory();
 
           // Create a new file upload handler
           ServletFileUpload upload = new ServletFileUpload(factory);
-  
+
          try {
 		String c_id = session.getAttribute("courseid").toString();
 		String fileName = "";
-		
+
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			 con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
@@ -90,23 +92,23 @@ public class FileUploadServlet extends HttpServlet {
 		File uploadedFile=null;
 
                 while (iterator.hasNext()) {
-			
+
                      FileItem item = (FileItem) iterator.next();
 		     if (!item.isFormField())
 		     {
-                         fileName = item.getName();  
+                         fileName = item.getName();
                          String root = getServletContext().getRealPath("/");
-                           
+
                          uploadedFile = new File(root+"/"+fileName);
 			item.write(uploadedFile);
-			page="file_path.jsp";			
-                     }
+			page="file_path.jsp";
+         }
 		     else
 		     {
 			String Name = item.getFieldName();
 			if(Name.equals("unitName"))
 			{
-				unitName = item.getString();	
+				unitName = item.getString();
 			}
 			if(Name.equals("sName"))
 			{
@@ -116,20 +118,30 @@ public class FileUploadServlet extends HttpServlet {
 			{
 				page="fac_dash.jsp";
 			}
+      if(Name.equals("fileType"))
+      {
+        fType = item.getString();
+      }
+      if(Name.equals("fTitle"))
+      {
+        fTitle = item.getString();
+      }
 		     }
                      //end of if inside while
                  }//end of while
 
-		session.setAttribute("unit",unitName);			
+		session.setAttribute("unit",unitName);
 		session.setAttribute("fPath",uploadedFile.getAbsolutePath());
 		session.setAttribute("fName",fileName);
+    session.setAttribute("fType",fType);
+    session.setAttribute("fTitle",fTitle);
          }
 	 catch (Exception e) {
           page="error.jsp";
          }//end of try catch
 	response.sendRedirect(page);
        }//end of outer if
-       
+
   }//end of doPost
 
 }

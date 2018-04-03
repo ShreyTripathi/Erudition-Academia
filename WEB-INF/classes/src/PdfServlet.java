@@ -23,7 +23,7 @@ public class PdfServlet extends HttpServlet {
 	String fileName="";	//the name of the file to be opened
 	String c_id="";
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		fileName = request.getParameter("fileName");
 		try{
 			Class.forName("com.mysql.jdbc.Driver");

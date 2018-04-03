@@ -5,10 +5,17 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.main_text{
+  font-size: 1.4em;
+}
+</style>
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 <jsp:include page="navbar_public.jsp" />
+</div>
+<div class="container main_text text-center">
 <%
 	if(session.getAttribute("uId")==null||!session.getAttribute("type").toString().equals("faculty"))
 	{
@@ -16,7 +23,7 @@
 	}
 		String uId = session.getAttribute("uId").toString();
 		String uType= session.getAttribute("type").toString();
-		
+
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
@@ -24,8 +31,8 @@
 		String user= "root";
 		String pass= "root";
 		String choice = request.getParameter("view_choice").toLowerCase();
-					
-		try{	
+
+		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
@@ -34,33 +41,36 @@
 				rs = st.executeQuery("select * from student");
 				int i=0;
 			%>
-				<table class="table">
+				<table class="table table-bordered">
 			<%	while(rs.next())
 				{
 					if(i==0)
 					{i++;%>
+          <thead>
 					<tr><th>Parameter</th><th>Value</th></tr>
+          </thead>
 					<%}%>
-					<tr><td></td><td>User ID: </td><td><%=rs.getString("suserid")%></td></tr>
-					<tr><td></td><td>User Name: </td> <td><%=rs.getString("sfname")%> <%=rs.getString("slname")%></td></tr>
-					<tr><td></td><td>Date Of Birth: </td><td><%=rs.getString("sdob")%></td></tr>
-					<tr><td></td><td>Gender: </td><td><%=rs.getString("gender")%></td></tr>
-					<tr><td></td><td>Graduate: </td><td><%=rs.getString("graduate")%></td></tr>
-					<tr><td></td><td>Address: </td><td><%=rs.getString("street")%> <%=rs.getString("city")%> <%=rs.getString("state")%> <%=rs.getString("country")%></td></tr>
-					<tr><td></td><td>Email: </td><td><%=rs.getString("email_id")%></td></tr>
-					
-				<%	
+
+					<tr><td>User ID: </td><td><%=rs.getString("suserid")%></td></tr>
+					<tr><td>User Name: </td> <td><%=rs.getString("sfname")%> <%=rs.getString("slname")%></td></tr>
+					<tr><td>Date Of Birth: </td><td><%=rs.getString("sdob")%></td></tr>
+					<tr><td>Gender: </td><td><%=rs.getString("gender")%></td></tr>
+					<tr><td>Graduate: </td><td><%=rs.getString("graduate")%></td></tr>
+					<tr><td>Address: </td><td><%=rs.getString("street")%> <%=rs.getString("city")%> <%=rs.getString("state")%> <%=rs.getString("country")%></td></tr>
+					<tr><td>Email: </td><td><%=rs.getString("email_id")%></td></tr>
+
+				<%
 				}
 			%>
 				</table>
 			<%
 			}
 			else if(choice.equals("faculties"))
-			{	
+			{
 				rs = st.executeQuery("select * from faculty");
 				int i=0;
 			%>
-				<table class="table">
+				<table class="table table-bordered main_text">
 			<%	while(rs.next())
 				{
 					if(i==0)
@@ -75,9 +85,9 @@
 					<tr><td>Post-Graduate: </td><td><%=rs.getString("postgrad")%></td></tr>
 					<tr><td>Address: </td><td><%=rs.getString("street")%> <%=rs.getString("city")%> <%=rs.getString("state")%> <%=rs.getString("country")%></td></tr>
 					<tr><td>Email: </td><td><%=rs.getString("email_id")%></td></tr>
-					
+
 				<%}
-			%>	
+			%>
 				</table>
 			<%
 			}
@@ -87,13 +97,17 @@
 				rs = st.executeQuery("select * from faculty where fuserid='"+facId+"'");
 				int i=0;
 			%>
-				<table>
-			<%	while(rs.next())
+				<table class="table table-bordered main_text">
+			<%	if(rs.next()){
+        do
 				{
 					if(i==0)
 					{i++;%>
+          <thead>
 					<tr><th>Parameter</th><th>Value</th></tr>
+        </thead>
 					<%}%>
+
 					<tr><td>User ID: </td><td><%=rs.getString("fuserid")%></td></tr>
 					<tr><td>User Name: </td> <td><%=rs.getString("ffname")%> <%=rs.getString("flname")%></td></tr>
 					<tr><td>Date Of Birth: </td><td><%=rs.getString("dob")%></td></tr>
@@ -102,11 +116,12 @@
 					<tr><td>Post-Graduate: </td><td><%=rs.getString("postgrad")%></td></tr>
 					<tr><td>Address: </td><td><%=rs.getString("street")%> <%=rs.getString("city")%> <%=rs.getString("state")%> <%=rs.getString("country")%></td></tr>
 					<tr><td>Email: </td><td><%=rs.getString("email_id")%></td></tr>
-					
-				<%}
-			%>	
+
+				<%}while(rs.next());
+      }else{out.println("<div class='alert-info'>No Such User Exists. Make Sure the User Id is correct.</div>");}
+			%>
 				</table>
-			<%	
+			<%
 			}
 			else if(choice.equals("stud_det"))
 			{
@@ -114,13 +129,17 @@
 				rs = st.executeQuery("select * from student where suserid='"+stud_id+"'");
 				int i=0;
 			%>
-				<table>
-			<%	while(rs.next())
+				<table class="table table-bordered main_text">
+			<%if(rs.next()){
+      	do
 				{
 					if(i==0)
 					{i++;%>
+          <thead>
 					<tr><th>Parameter</th><th>Value</th></tr>
+        </thead>
 					<%}%>
+
 					<tr><td>User ID: </td><td><%=rs.getString("suserid")%></td></tr>
 					<tr><td>User Name: </td> <td><%=rs.getString("sfname")%> <%=rs.getString("slname")%></td></tr>
 					<tr><td>Date Of Birth: </td><td><%=rs.getString("sdob")%></td></tr>
@@ -128,13 +147,14 @@
 					<tr><td>Graduate: </td><td><%=rs.getString("graduate")%></td></tr>
 					<tr><td>Address: </td><td><%=rs.getString("street")%> <%=rs.getString("city")%> <%=rs.getString("state")%> <%=rs.getString("country")%></td></tr>
 					<tr><td>Email: </td><td><%=rs.getString("email_id")%></td></tr>
-					
-				<%}
+
+			<%}while(rs.next());
+    }else{out.println("<div class='alert-info'>No Such User Exists. Make Sure the User Id is correct.</div>");}
 			%>
 				</table>
 			<%
 			}
-			
+
 		}catch(Exception e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>
