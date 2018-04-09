@@ -29,19 +29,24 @@
       background-color:#ccc;
       width: 200px;
       font-size: 1.2em;
-      margin-right: 1.9em;
+      margin-right: 2.0em;
       padding: 1.2em;
+      border-radius: 0.2em;
+      border: 1px solid;
+      box-shadow: 5px 4px #666666;
     }
     .vertical-menu a {
-      background-color: #eee;
+      background-color: #ddf;
       color: black;
       display: block;
       padding: 12px;
+      border-radius: 0.5em;
       text-decoration: none;
+      box-shadow: 3px 2px #666666;
     }
 
     .vertical-menu a:hover {
-      background-color: #ccc;
+      background-color: #bfb;
     }
 
     /* Set black background color, white text and some padding */
@@ -63,15 +68,24 @@
       background-color: #eee;
       padding-left: 1.2em;
       font-size: 1.4em;
+      box-shadow: 6px 5px #888888;
+    }
+    body {
+     background: url('table.jpg') no-repeat center center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
     }
   </style>
   <link rel="stylesheet" href="nav_css.css">
+  <link rel="stylesheet" href="video_css.css">
 <script>
 $(document).ready(function(){
 		jQuery.each($(".videoSelect"),function()
 		{
 			$(this).on("click",function(){
-				$("#videoFile").val($(this).parent().children(':first-child').html());
+				$("#videoFile").val($(this).parent().parent().children(':first-child').html());
         $("#videoTitle").val($(this).html());
 				$("#videoForm").submit();
 			});
@@ -137,9 +151,8 @@ try{
 
 <!--Code Begins-->
 
-<div class="container-fluid">
+
 <jsp:include page="navbar_public.jsp" />
-</div>
 <div class="container-fluid" style="font-size:1.4em">
 <nav class="navbar navbar-default">
   <div class="container">
@@ -161,7 +174,7 @@ try{
 <%if(videoRs.next()){%>
 <table>
   <%do{%>
-  <tr><td hidden><%=videoRs.getString("filename")%></td><td class="videoSelect"><a href="#"><%=videoRs.getString("filetitle")%></a></td></tr>
+  <tr><td hidden><%=videoRs.getString("filename")%></td><td class="videoTR"><a href="#" class="videoSelect"><%=videoRs.getString("filetitle")%></a></td></tr>
   <%}while(videoRs.next());
   %>
 </table>

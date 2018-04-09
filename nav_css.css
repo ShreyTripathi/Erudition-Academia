@@ -1,5 +1,5 @@
 #mynav{
-  background-color: #00f;
+  background-color: black;
 }
 #navright li a{
   color: #fff;
@@ -7,5 +7,6 @@
 }
 #mylogo{
   color: #fff;
+  font-family: "Times New Roman", Times, serif;
   font-size:1.7em;
 }

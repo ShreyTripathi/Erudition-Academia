@@ -50,4 +50,12 @@
    <servlet-name>pdfServlet</servlet-name>
    <url-pattern>/content.pdf</url-pattern>
   </servlet-mapping>
+  <servlet>
+   <servlet-name>enterTopic</servlet-name>
+   <servlet-class>EnterTopic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>enterTopic</servlet-name>
+   <url-pattern>/nextQues</url-pattern>
+  </servlet-mapping>
 </web-app>

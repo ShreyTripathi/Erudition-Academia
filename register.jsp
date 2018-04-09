@@ -4,7 +4,7 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="index_css.css"></head>
+        <link rel="stylesheet" href="register_css.css"></head>
         <body>
           <div class="container">
             <div class="row">
@@ -41,7 +41,7 @@
                                   </label>
                                 </td>
                                 <td>
-                                  <input type="text" name="userid" autocomplete="randomstring" required></td>
+                                  <input type="text" name="userid" pattern="[a-zA-Z0-9]+" autocomplete="randomstring" required></td>
                                 </tr>
                                 <tr>
                                   <td>

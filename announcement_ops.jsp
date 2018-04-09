@@ -9,23 +9,11 @@
 .main_text{
   font-size: 1.4em;
 }
-#mynav{
-  background-color: #f00;
-}
-#navright li a{
-  color: #fff;
-  font-size: 1.4em;
-}
-#mylogo{
-  color: #fff;
-  font-size:1.4em;
-}
 </style>
+<link rel="stylesheet" href="nav_css.css">
 </head>
 <body>
-<div class="container-fluid">
 <jsp:include page="navbar_public.jsp" />
-</div>
 <div class="container main_text text-center">
 <%
   String courseId = request.getParameter("courseId");
@@ -79,8 +67,8 @@
       <tr><td><label for="heading">Announcement Heading:</label></td><td><input type="text" name="heading" size="45" required/></td></tr>
       <input type="hidden" name="dated" value="<%=dateStr%>" />
       <input type="hidden" name="courseId" value="<%=courseId%>" />
-      <tr><td><label for="content">Announcement Details:</label></td><td><textarea cols="80" rows="3" name="content" required></textarea></td></tr>
-      <tr><td><input type="submit" value="I have correctly entered Assignment Details"></td></tr>
+      <tr><td><label for="content">Announcement Details:</label></td><td><textarea cols="55" rows="3" name="content" required></textarea></td></tr>
+      <tr><td><input type="submit" value="I have correctly entered Announcement Details"></td></tr>
       </table>
     </form>
     <%

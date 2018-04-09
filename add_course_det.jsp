@@ -6,9 +6,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Add Course Details</title>
+  <link rel="stylesheet" href="nav_css.css">
 </head>
 <body>
-<div class="container">
 <%
 
 if(session.getAttribute("uId")==null)
@@ -21,6 +21,7 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 }
 %>
 <jsp:include page="navbar_public.jsp" />
+<div class="container">
 <%
 	Connection con = null;
 	Statement st = null;
@@ -65,42 +66,42 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 	<h2><%=c_name%></h2>
 	<hr>
 	<form action="course_det_logic.jsp" method="post">
-	<p>Add Some info:</p>
+	<p style="font-size:1.4em">Add Some info:</p>
 	<textarea rows="2" cols="60" name="det" /></textarea>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">
+	      	<h2 class="panel-title">
 	      	  Unit 1
-	     	 </h4>
+	     	 </h2>
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit1:<textarea rows="3" cols="50" name="unit1-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit1:</p><textarea rows="3" cols="50" name="unit1-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">
+	      	<h2 class="panel-title">
 	      	  Unit 2
-	     	 </h4>
+	     	 </h2>
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit2:<textarea rows="3" cols="50" name="unit2-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit2:</p><textarea rows="3" cols="50" name="unit2-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">
-	     	 </h4>
+	      	<h2 class="panel-title">
+	     	 </h2>
          Unit 3
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit3:<textarea rows="3" cols="50" name="unit3-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit3:</p><textarea rows="3" cols="50" name="unit3-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
-	      	<h4 class="panel-title">
+	      	<h2 class="panel-title">
 	      	  Unit 4
-	     	 </h4>
+	     	 </h2>
 	    	</div>
-	    	<div class="panel-body">Enter some info about unit 4:<textarea rows="3" cols="50" name="unit4-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit 4:</p><textarea rows="3" cols="50" name="unit4-info"></textarea>
 		</div>
 	    </div>
 	    <table class="table table-bordered">
@@ -122,10 +123,10 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 		<td>Finish Date: </td>
 		<td><%=edate%></td>
 		</tr>
-		<tr>
+		<!--tr>
 		<td>Fee</td>
 		<td><%=fee%></td>
-		</tr>
+		</tr-->
 		<tr><td><input type="submit" value="submit"></td></tr>
 	    </tbody>
 	    </table>

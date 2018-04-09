@@ -11,7 +11,7 @@
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
-		try{	
+		try{
 			String dbName = "modif_eru_acad";
 			String user= "root";
 			String pass= "root";
@@ -29,7 +29,7 @@
 			{
 				 rs =  st.executeQuery("Select pass from student where suserid='"+uId+"'");
 			}
-			if(rs.next())			
+			if(rs.next())
 			{
 				if(rs.getString("pass").toString().equals(pwd))
 				{
@@ -54,6 +54,7 @@
 					The user is not registered!
 				</div>
 			<%
+        request.setAttribute("error","<div class='alert alert-warning text-center' style='font-size:1.4em;'>User Does not Exist</div>");
 				request.getRequestDispatcher("login.jsp").forward(request,response);
 			}
 
@@ -71,7 +72,7 @@
 			try{
 				con.close();
 			}catch(Exception e){}
-		}	
+		}
 %>
 </body>
 </html>

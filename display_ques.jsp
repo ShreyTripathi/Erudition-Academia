@@ -1,8 +1,8 @@
-<%@ page import="java.sql.*"%>
+<%@ page import="java.sql.*, quesPackage.QuestionBean"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>PDF Content in the Course</title>
+  <title>Quiz</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -40,14 +40,14 @@
       color: black;
       display: block;
       padding: 12px;
-      border-radius: 0.5em;
       text-decoration: none;
+      border-radius: 0.5em;
       box-shadow: 3px 3px #666666;
     }
 
     .vertical-menu a:hover {
       background-color: #bfb;
-      box-shadow: 0px 0px #666666;
+      box-shadow: 3px 2px #666666;
     }
 
     /* Set black background color, white text and some padding */
@@ -68,39 +68,26 @@
     .main_text{
       background-color: #eee;
       padding-left: 1.2em;
-      font-size: 1.2em;
-      border: 1px solid;
+      font-size: 1.4em;
       box-shadow: 6px 5px #888888;
-    }
-    .filecss:hover{
-      color: #05e;
-      cursor: pointer;
-    }
-    body {
-     background: url('table.jpg') no-repeat center center fixed;
-     -webkit-background-size: cover;
-     -moz-background-size: cover;
-     -o-background-size: cover;
-     background-size: cover;
     }
   </style>
   <link rel="stylesheet" href="nav_css.css">
-  <link rel="stylesheet" href="video_css.css">
   <script>
   $(document).ready(function(){
-    jQuery.each($(".videoSelect"),function()
-    {
-      $(this).on("click",function(){
-        $("#videoFile").val($(this).parent().parent().children(':first-child').html());
-        $("#videoTitle").val($(this).html());
-        $("#videoForm").submit();
-      });
-    });
-      jQuery.each($(".pdfSelect"),function()
+  		jQuery.each($(".videoSelect"),function()
   		{
   			$(this).on("click",function(){
-  				$("#pdfFile").val($(this).parent().children(':first-child').html());
-  				$("#pdfForm").submit();
+  				$("#videoFile").val($(this).parent().children(':first-child').html());
+          $("#videoTitle").val($(this).html());
+  				$("#videoForm").submit();
+  			});
+  		});
+      jQuery.each($(".topicSelect"),function()
+  		{
+  			$(this).on("click",function(){
+  				$("#topicId").val($(this).parent().children(':first-child').html());
+  				$("#topicForm").submit();
   			});
   		});
   });
@@ -111,11 +98,11 @@
 <!--create connection and calling ResultSet for later use-->
 <%!
 Connection con = null;
-Statement pdfSt = null,videoSt=null;
+Statement videoSt=null;
 //,st3=null,st4=null;
 
 //rs for course info,pdfRs for pdf and rs2 for video
-ResultSet pdfRs=null,videoRs=null;
+ResultSet videoRs=null;
 //,rs2=null,rs3=null,rs4=null;
 
 String dbName = "modif_eru_acad";
@@ -128,10 +115,8 @@ try{
   Class.forName("com.mysql.jdbc.Driver");
   con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 
-  pdfSt = con.createStatement();
   videoSt = con.createStatement();
 
-  pdfRs = pdfSt.executeQuery("select filename,filetitle,unitname from content where courseid='"+courseId+"' and filetype='pdf' order by unitname");
   videoRs = videoSt.executeQuery("select * from content where courseid='"+courseId+"' and filetype='video' order by unitname");
   int i=1,flag=0;
   %>
@@ -159,10 +144,7 @@ try{
   </nav>-->
 
   <!--Code Begins-->
-
-
   <jsp:include page="navbar_public.jsp" />
-
   <div class="container-fluid" style="font-size:1.4em">
   <nav class="navbar navbar-default">
     <div class="container">
@@ -176,15 +158,15 @@ try{
   </nav>
   </div>
 
-<div class="container-fluid text-center">
+<div class="container-fluid ">
   <div class="row content">
-  <div class="vertical-menu col-sm-3">
+  <div class="vertical-menu text-center col-sm-3">
   <h3>Video Tab</h3>
   <hr>
   <%if(videoRs.next()){%>
   <table>
     <%do{%>
-    <tr><td hidden><%=videoRs.getString("filename")%></td><td class="videoTR"><a href="#" class="videoSelect"><%=videoRs.getString("filetitle")%></a></td></tr>
+    <tr><td hidden><%=videoRs.getString("filename")%></td><td class="videoSelect"><a href="#"><%=videoRs.getString("filetitle")%></a></td></tr>
     <%}while(videoRs.next());
     %>
   </table>
@@ -199,32 +181,29 @@ try{
   </div>
 
   <!--Center div starts here-->
-    <div class="col-sm-8 text-center main_text">
-    <h1 class="text-center">Content List</h1>
+    <div class="col-sm-8 main_text">
+    <h1>Quiz</h1>
     <hr>
       <%
-	if(pdfRs.next())
-	{%>
-          <table class="table" style="font-size:1.3em">
-          <thead>
-          <tr><th class="text-center">File Name</th><th class="text-center">Unit Name</th></tr>
-          </thead>
-         <tbody>
-         <%do{%>
-					<tr><td hidden><%=pdfRs.getString("filename")%></td><td class="pdfSelect filecss"><%=pdfRs.getString("filetitle")%></td><td><%=pdfRs.getString("unitname")%></td></tr>
-          <%}while(pdfRs.next());
-  }
-  else{out.println("<div class='alert-info'>No Content yet in this course</div>");}
-          %>
-          </tbody>
-					</table>
-				<form action="/content.pdf" method="post" id="pdfForm">
-				<input type="hidden" name="fileName" id="pdfFile">
+	       QuestionBean quesBean = (QuestionBean)session.getAttribute("QuesBean");
+      %>
+				<form action="/nextQues" method="post" id="topicForm">
+        <table>
+        <tr><td>Difficulty: <%=quesBean.getDiff()%></td></tr>
+        <tr><td>Q<%=session.getAttribute("QuesNo").toString()%> <%=quesBean.getQuesDet()%></td></tr>
+        <tr><td><input type="hidden" name="courseId" value="<%=courseId%>"></td></tr>
+        <tr><td><input type="hidden" name="quesId" value="<%=quesBean.getQuesId()%>"></td></tr>
+        <tr><td><input type="radio" name="userCh" value="<%=quesBean.getCh1()%>"><%=quesBean.getCh1()%></td></tr>
+        <tr><td><input type="radio" name="userCh" value="<%=quesBean.getCh2()%>"><%=quesBean.getCh2()%></td></tr>
+        <tr><td><input type="radio" name="userCh" value="<%=quesBean.getCh3()%>"><%=quesBean.getCh3()%></td></tr>
+        <tr><td><input type="radio" name="userCh" value="<%=quesBean.getCh4()%>"><%=quesBean.getCh4()%></td></tr>
+        <tr><td><input type="submit" value="Are You Sure"></td></tr>
+				</table>
 				</form>
       <hr>
     <%
   }//end of try block
-      catch(Exception e){
+      catch(SQLException e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>
 		<%
@@ -232,7 +211,7 @@ try{
 		}
 		finally{
 			try{
-				pdfSt.close();
+				videoSt.close();
 			}catch(Exception e){}
 			try{
 				con.close();

@@ -7,12 +7,15 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="nav_css.css">
   <style>
-    .mytable{
-      width: 50%;
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 1.2em;
-    }
+  .mytable{
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.2em;
+    border: 1px solid;
+    padding: 10px;
+    //box-shadow: 3px 4px #666666;
+  }
   </style>
 <script>
 $(document).ready(function(){
@@ -36,9 +39,9 @@ $(document).ready(function(){
 <title>DashBoard</title>
 </head>
 <body>
-<div class="container-fluid">
+
 	<jsp:include page="navbar_faculty.jsp" />
-</div>
+
 <div class="container text-center" style="font-size:1.2em;">
 <%
 		if(session.getAttribute("type")==null||session.getAttribute("uId")==null)
@@ -53,6 +56,11 @@ $(document).ready(function(){
 		{
 			session.removeAttribute("courseid");
 		}
+    if(session.getAttribute("last_date")!=null)
+    {
+      session.removeAttribute("last_date");
+      session.removeAttribute("topic_name");
+    }
 %>
 		<h1 style="background-color:#eee">Faculty Dashboard</h1>
     <hr>
@@ -99,12 +107,13 @@ $(document).ready(function(){
 				<%if(rs2.next()){%>
 					<h2 style="background-color:#eee">Courses Added </h2>
 					<table class="table table-bordered mytable">
-          <tr><th>Course Id</th><th>Course Name</th></tr>
+          <tr><th>Course Id</th><th>Course Name</th><th>Operations On Course</th></tr>
 					<%
 					do
 					{    String courseId =rs2.getString("courseid");
             %>
-						<tr><td><%=courseId%></td><td><%=rs2.getString("coursename")%></td><td><a href="file_upload.jsp?courseId=<%=courseId%>">Add Files</a></td></tr>
+						<tr><td><%=courseId%></td><td><%=rs2.getString("coursename")%></td><td><div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" style="font-size:1.1em" type="button" data-toggle="dropdown">Select Operation<span class="caret"></span></button><ul style="font-size:1.1em" class="dropdown-menu"><li><a href="file_upload.jsp?courseId=<%=courseId%>">Add File</a></li><li><a href="enter_question.jsp?courseId=<%=courseId%>">Add Quiz</a></li></ul></div></td></tr>
 					<%}while(rs2.next());
 				}
 				%>
@@ -128,7 +137,7 @@ $(document).ready(function(){
 					<input type="submit" style="font-size:1.2em" value="see details">
 					</form>
           <form action="announcement_ops.jsp" method="get">
-          <label for="courseId" style="font-size:1.2em">View Or Add Particular Courses Announcements:</label>
+          <label for="courseId" style="font-size:1.2em">View Or Add Particular Course Announcements:</label>
           <input type="text" placeholder="Enter Course Id" name="courseId" style="font-size:1.2em">
           <input type="submit" style="font-size:1.2em" value="See Announcements" />
           </form>

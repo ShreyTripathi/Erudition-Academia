@@ -42,4 +42,20 @@
    <servlet-name>FileUpload</servlet-name>
    <url-pattern>/fileuploadexample</url-pattern>
   </servlet-mapping>
+  <servlet>
+   <servlet-name>pdfServlet</servlet-name>
+   <servlet-class>PdfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>pdfServlet</servlet-name>
+   <url-pattern>/content.pdf</url-pattern>
+  </servlet-mapping>
+  <serlvet>
+   <servlet-name>enterTopic</servlet-name>
+   <serlvet-class>EnterTopic</serlvet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>enterTopic</servlet-name>
+   <url-pattern>/enterQuiz</url-pattern>
+  </servlet-mapping>
 </web-app>

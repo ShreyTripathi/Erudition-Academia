@@ -6,24 +6,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>File Upload</title>
+  <link rel="stylesheet" href="nav_css.css">
 </head>
-<style>
-#mynav{
-  background-color: #00f;
-}
-#navright li a{
-  color: #fff;
-  font-size: 1.4em;
-}
-#mylogo{
-  color: #fff;
-  font-size:1.7em;
-}
-</style>
 <body>
-  <div class="container-fluid">
-  <jsp:include page="navbar_faculty.jsp" />
-  </div>
+<jsp:include page="navbar_faculty.jsp" />
 <div class="container">
 
     <%
@@ -75,7 +61,7 @@
 		if(rs.next())
 		{
      %>
-	<h1>SELECT FILES FOR THE UNITS BEING TAUGHT IN THE COURSE:<%=rs.getString("coursename")%></h1>
+	<h1><p>SELECT FILES FOR THE UNITS BEING TAUGHT IN THE COURSE:</p><p> <%=rs.getString("coursename")%></p></h1>
   <hr>
         <form action="/fileuploadexample" method="post" enctype="multipart/form-data">
             <table class="table">
@@ -93,9 +79,9 @@
                     <option value="pdf">PDF</option>
                   </select>
             </td></tr>
-            <tr><td><label for="fTitle">Enter Title for File:(Please Ensure that videos should be in <strong>MP4</strong> format) </label></td></tr>
+            <tr><td><label for="fTitle">Enter Title for File: </label></td></tr>
             <tr><td><input type="text" name="fTitle" required></td></tr>
-	          <tr><td><label for="fileName1">Select File: </label></td></tr>
+	          <tr><td><label for="fileName1">Select File:(Please Ensure that videos should be in <strong>MP4</strong> format)</label></td></tr>
             <tr><td><input id="fileName1" type="file" name="fileName" size="30" required></td></tr>
             <tr><td><input type="submit" value="Upload"/></td></tr>
 	          </table>

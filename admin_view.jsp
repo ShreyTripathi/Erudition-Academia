@@ -10,11 +10,10 @@
   font-size: 1.4em;
 }
 </style>
+<link rel="stylesheet" href="nav_css.css">
 </head>
 <body>
-<div class="container-fluid">
 <jsp:include page="navbar_public.jsp" />
-</div>
 <div class="container main_text text-center">
 <%
 	if(session.getAttribute("uId")==null||!session.getAttribute("type").toString().equals("faculty"))

@@ -61,23 +61,22 @@ $(document).ready(function(){
 	{
 		$(this).on("click",function()
 		{
-			$("#courseId").val($(this).find(".cId").html());
+			$("#cat").val($(this).find(".cat").html());
 			$("#form1").submit();
 		});
 	});
 });
 </script>
 <link rel="stylesheet" href="nav_css.css">
-<title>Course List</title>
+<title>Category List</title>
 </head>
 <body>
-  <div class="container-fluid">
+
 <jsp:include page="navbar_public.jsp" />
-</div>
+
 <div class="container">
 
 <%
-    String category=request.getParameter("cat");
 		Connection con = null;
 		Statement st = null;
 
@@ -92,25 +91,23 @@ $(document).ready(function(){
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
-			rs = st.executeQuery("select course.*,ffname,flname from course,faculty where faculty.fuserid=course.fuserid and category='"+category+"'");
+			rs = st.executeQuery("select distinct course.category from course");
 			session.removeAttribute("courseid");
 
 			if(rs.next())
 			{%>
-          <h1 style="color:#f1f1f1">List of Courses:</h1>
+          <h1 style="color:#f1f1f1">List of Category of Courses:</h1>
           <hr>
         <%
 				do
-				{   String courseId = rs.getString("courseid");
+				{   String cat = rs.getString("category");
 					%>
-						    <a href="course_det_view1.jsp?courseId=<%=courseId%>"><div class="col-md-4">
+						    <a href="my_course_list.jsp?cat=<%=cat%>"><div class="col-md-4">
 						      <div class="thumbnail">
 						        <img class="myimage" src="ea.jpeg" alt="Erudition Academia" style="width:100%;">
 						          <div class="caption">
                       <div class="mytext">
-							    <p class="cId"><%=courseId%></p>
-						            <p><%=rs.getString("coursename")%></p>
-						            <p><%=rs.getString("ffname")%> <%=rs.getString("flname")%></p>
+							    <p class="cat"><%=cat%></p>
                         </div>
 						          </div>
 						      </div>
@@ -135,7 +132,7 @@ $(document).ready(function(){
 			}
 			%>
 			<form action="course_det_view1.jsp" method="get" id="form1">
-			<input type="hidden" name="courseId" id="courseId">
+			<input type="hidden" name="cat" id="cat">
 			</form>
 		<%
 		}

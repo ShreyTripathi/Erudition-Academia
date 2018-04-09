@@ -42,7 +42,7 @@
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
 			st1 =con.createStatement();
-			int i = st.executeUpdate("insert into course_det values('"+c_id+"','"+info+"','"+u1+"','"+u2+"','"+u3+"','"+u4+"','"+pass_cri+"','"+lang+"')");
+			int i = st.executeUpdate("insert into course_det(courseid,courseinfo,unit1info,unit2info,unit3info,unit4info,passcri,lang) values('"+c_id+"','"+info+"','"+u1+"','"+u2+"','"+u3+"','"+u4+"','"+pass_cri+"','"+lang+"')");
 			rs = st1.executeQuery("Select coursename from course where courseid='"+c_id+"'");
 				response.sendRedirect("file_upload.jsp");
 

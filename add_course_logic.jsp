@@ -21,6 +21,7 @@
 </head>
 <body>
 <%
+    String cat = request.getParameter("category");
 		String c_id = request.getParameter("course_id");
 		String c_name = request.getParameter("course_name");
 		String sdate = request.getParameter("sdate");
@@ -40,7 +41,7 @@
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
-			int i = st.executeUpdate("insert into course(courseid,coursename,sdate,edate,duration,fee,fuserid) values('"+c_id+"','"+c_name+"','"+sdate+"','"+edate+"','"+duration+"','"+fee+"','"+fuserid+"')");
+			int i = st.executeUpdate("insert into course(courseid,coursename,sdate,edate,duration,fee,fuserid,category) values('"+c_id+"','"+c_name+"','"+sdate+"','"+edate+"','"+duration+"','"+fee+"','"+fuserid+"','"+cat+"')");
 				session.setAttribute("courseid",c_id);
 				response.sendRedirect("add_course_det.jsp");
 

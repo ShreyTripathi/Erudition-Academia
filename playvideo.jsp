@@ -32,18 +32,23 @@
       font-size: 1.2em;
       padding: 1.2em;
       margin-right: 1.9em;
+      border-radius: 0.2em;
+      border: 1px solid;
+      box-shadow: 3px 4px #666666;
     }
     .vertical-menu a {
-      background-color: #4f4;
+      background-color: #ddf;
       color: black;
       display: block;
       padding: 12px;
       text-decoration: none;
       border-radius: 0.5em;
+      box-shadow: 3px 3px #666666;
     }
 
     .vertical-menu a:hover {
       background-color: #bfb;
+      box-shadow: 0px 0px #333333;
     }
 
     /* Set black background color, white text and some padding */
@@ -65,6 +70,8 @@
       background-color: #eee;
       padding-left: 1.2em;
       font-size: 1.2em;
+      border: 1px solid;
+      box-shadow: 6px 5px #888888;
     }
   </style>
 <script>
@@ -72,13 +79,14 @@ $(document).ready(function(){
 		jQuery.each($(".videoSelect"),function()
 		{
 			$(this).on("click",function(){
-				$("#videoFile").val($(this).parent().children(':first-child').html());
+				$("#videoFile").val($(this).parent().parent().children(':first-child').html());
         $("#videoTitle").val($(this).html());
 				$("#videoForm").submit();
 			});
 		});
 });
 </script>
+<link rel="stylesheet" href="video_css.css">
 </head>
 <body>
   <%!String courseId;%>
@@ -109,7 +117,6 @@ try{
   con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
   st = con.createStatement();
   videoSt = con.createStatement();
-  rs = st.executeQuery("select course_det.*,coursename,sdate,edate,fee from course_det,course where course_det.courseid='"+courseId+"' and course.courseid='"+courseId+"'");
   videoRs = videoSt.executeQuery("select * from content where courseid='"+courseId+"' and filetype='video' order by unitname");
   int i=1,flag=0;
   %>
@@ -138,10 +145,9 @@ try{
 
 <!--Code Begins-->
 
-<div class="container-fluid">
+
 <jsp:include page="navbar_public.jsp" />
-</div>
-<div class="container-fluid">
+<div class="container-fluid" style="font-size:1.4em">
 <nav class="navbar navbar-default">
   <div class="container">
   <ul class="nav navbar-nav navbar-right">
@@ -162,7 +168,7 @@ try{
 <%if(videoRs.next()){%>
 <table>
   <%do{%>
-  <tr><td hidden><%=videoRs.getString("filename")%></td><td class="videoSelect"><a href="#"><%=videoRs.getString("filetitle")%></a></td></tr>
+  <tr><td hidden><%=videoRs.getString("filename")%></td><td class="videoTR"><a href="#" class="videoSelect"><%=videoRs.getString("filetitle")%></a></td></tr>
   <%}while(videoRs.next());
   %>
 </table>
@@ -182,7 +188,7 @@ try{
     <div class="col-sm-8 text-center main_text">
     <h1><%=request.getParameter("videoTitle")%></h1>
     <hr style="height:1px; border:none; color:blue; background-color:#ddd;">
-    <p><video width="800" height="600" controls>
+    <p><video width="800" height="600" onclick="this.pause()" controls>
       <source src="<%=videoFile%>">
         Please Update Your Browser In Order to Watch The Video.
         </video>

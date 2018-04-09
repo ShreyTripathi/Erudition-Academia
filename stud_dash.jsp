@@ -12,6 +12,9 @@
       margin-left: auto;
       margin-right: auto;
       font-size: 1.2em;
+      border: 1px solid;
+      padding: 10px;
+      //box-shadow: 3px 4px #666666;
     }
     </style>
 <title>DashBoard</title>
@@ -31,7 +34,7 @@
 			request.getRequestDispatcher("fac_dash.jsp").forward(request,response);
 		}
 %>
-		<h1 style="background-color:#eee">Student Dashboard</h1>
+		<h1 style="background-color:#eee;box-shadow:6px 3px #888888;margin-bottom:1.3em">Student Dashboard</h1>
 <%
 		String dbName = "modif_eru_acad";
 		String user= "root";
@@ -39,8 +42,8 @@
 
 		Connection con = null;
 		Statement st = null;
-		Statement st1 = null;
-		ResultSet rs = null;
+		Statement st1 = null,enrolledSt=null;
+		ResultSet rs = null,enrolledRs=null;
 		ResultSet rs1 = null;
 		try{
 
@@ -50,7 +53,9 @@
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
+      enrolledSt = con.createStatement();
 			rs= st.executeQuery("Select sfname,slname,sdob,gender,graduate,street,city,state,country from "+uType+" where suserid='"+uId+"'");
+      enrolledRs = enrolledSt.executeQuery("Select enrolled.courseId,coursename from enrolled,course where enrolled.userid='"+session.getAttribute("uId").toString()+"' and course.courseid=enrolled.courseid");
 			if(rs.next())
 			{%>
 				<table class="table table-bordered mytable">
@@ -59,8 +64,7 @@
 				<tr><td><strong>D.O.B. :</strong></td><td><%=rs.getString("sdob")%></td></tr>
 				<tr><td><strong>Gender :</strong></td><td><%=rs.getString("gender")%></td></tr>
 				<tr><td><strong>Graduate :</strong></td><td><%=rs.getString("graduate")%></td></tr>
-				<tr><td><strong>Address :</strong></td><td><%=rs.getString("street")%></td></tr>
-				<tr><td></td><td><%=rs.getString("city")%> <%=rs.getString("state")%></td></tr>
+				<tr><td><strong>Address :</strong></td><td><%=rs.getString("street")%>, <%=rs.getString("city")%> <%=rs.getString("state")%></td></tr>
 				<tr><td><strong>Country:</strong></td><td><%=rs.getString("country")%></td></tr>
 
 				</table>
@@ -68,13 +72,30 @@
 			<%}
 			%>
 			<hr>
+      <h2 style="background-color:#eee;box-shadow:6px 3px #888888;margin-bottom:1.3em">Enrolled Courses</h2><%
+      if(enrolledRs.next())
+      {%>
+        <table class="table table-bordered mytable">
+        <tr><th>Course Id</th><th>Course Name</th><th>Go To</th></tr>
+        <%
+        do{ String courseId=enrolledRs.getString("courseid");
+          %>
+            <tr><td><%=courseId%></td><td><%=enrolledRs.getString("coursename")%></td><td><div class="dropdown"><button class="btn btn-primary dropdown-toggle" style="font-size:1.1em" type="button" data-toggle="dropdown">Select Page<span class="caret"></span></button><ul style="font-size:1.1em" class="dropdown-menu"><li><a href="course_det_view1.jsp?courseId=<%=courseId%>">Course</a></li><li><a href="see_announcements.jsp?courseId=<%=courseId%>">View Announcements</a></li><li><a href="download_pdf.jsp?courseId=<%=courseId%>">Download Content</a></li></ul></div>
+            </td></tr>
+
+        <%}while(enrolledRs.next());
+        %>
+          </table>
+      <%}
+      %>
+      <hr>
 			<%
 				st1 = con.createStatement();
 				rs1= st.executeQuery("Select coursename from feedback where suserid='"+uId+"'");
 				if(rs1.next())
 				{
 			%>
-				<h2 style="background-color:#eee">Feed Backs Given to</h2>
+				<h2 style="background-color:#eee;box-shadow:6px 3px #888888;margin-bottom:1.3em">Feed Backs Given to</h2>
 				<table class="table table-bordered mytable">
 				<tr><th>Course Names</th></tr>
 				<%

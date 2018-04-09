@@ -5,8 +5,7 @@
     </div>
   <div class="navbar-default">
     <ul class="nav navbar-nav navbar-right" id="navright">
-  <li><a href="my_course_list.jsp">View Courses</a></li>
-	<li><a href="enter_question.jsp">Create Test</a></li>
+  <li><a href="my_categories.jsp">View Courses</a></li>
 	<li><a href="add_course.jsp">Add Course</a></li>
 	<%if(session.getAttribute("uId")==null){%>
 	<li><a href="login.jsp">Login</a></li>

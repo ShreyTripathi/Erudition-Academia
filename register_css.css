@@ -5,28 +5,10 @@ body {
  -o-background-size: cover;
  background-size: cover;
 }
-
 .panel-default {
  opacity: 0.9;
  margin-top:3em;
- width: 29.4em;
- height: 40%;
 }
 .panel-heading .panel-footer{
   font-size: 1.3em;
-}
-.panel-body{
-  height: 75%;
-}
-.control-label{
-  height: 25%;
-  font-size: 1.2em;
-}
-.form-control{
-  height: 16%;
-  font-size: 1.3em;
-}
-
-.form-horizontal {
- margin-bottom:0px;
 }

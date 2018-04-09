@@ -30,17 +30,26 @@
       width: 200px;
       font-size: 1.2em;
       padding: 1.2em;
+      margin-right: 1.9em;
+      border-radius: 0.3em;
+      border-radius: 0.3em;
+      border: 1px solid;
+      box-shadow: 3px 4px #666666;
     }
     .vertical-menu a {
-      background-color: #eee;
+      background-color: #ddf;
       color: black;
       display: block;
       padding: 12px;
       text-decoration: none;
+      border-radius: 0.5em;
+      margin-bottom: 0.7em;
+      box-shadow: 5px 4px #666666;
     }
 
     .vertical-menu a:hover {
-      background-color: #ccc;
+      background-color: #bfb;
+      box-shadow: 3px 2px #666666;
     }
 
     /* Set black background color, white text and some padding */
@@ -62,9 +71,18 @@
       background-color: #eee;
       padding-left: 1.2em;
       font-size: 1.4em;
+      box-shadow: 6px 5px #888888;
+    }
+    body {
+     background: url('table.jpg') no-repeat center center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
     }
   </style>
   <link rel="stylesheet" href="nav_css.css">
+  <link rel="stylesheet" href="video_css.css">
   <script>
   $(document).ready(function(){
   		jQuery.each($(".videoSelect"),function()
@@ -84,6 +102,12 @@
   		});
   });
   </script>
+  <style>
+  .topicSelect:hover{
+    color: #05e;
+    cursor: pointer;
+  }
+  </style>
 </head>
 <body>
   <%!String courseId;%>
@@ -103,6 +127,8 @@ String pass= "root";
 %>
 <%
 courseId = request.getParameter("courseId");
+if(session.getAttribute("QuesNo")!=null)
+  session.removeAttribute("QuesNo");
 try{
   Class.forName("com.mysql.jdbc.Driver");
   con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
@@ -139,9 +165,7 @@ try{
 
   <!--Code Begins-->
 
-  <div class="container-fluid">
   <jsp:include page="navbar_public.jsp" />
-  </div>
   <div class="container-fluid" style="font-size:1.4em">
   <nav class="navbar navbar-default">
     <div class="container">
@@ -190,10 +214,10 @@ try{
           </thead>
          <tbody>
          <%do{%>
-					<tr><td hidden><%=quizRs.getString("topicid")%></td><td class="topicSelect" style="background-color:#ada;"><%=quizRs.getString("topicname")%></td><%=quizRs.getString("lastdate")%></tr>
+					<tr><td hidden><%=quizRs.getString("topicid")%></td><td class="topicSelect"><%=quizRs.getString("topicname")%></td><td><%=quizRs.getString("lastdate")%></td></tr>
           <%}while(quizRs.next());
   }
-  else{out.println("<div class='alert-info'>No Quizez yet uploaded</div>");}
+  else{out.println("<div class='alert-info'>No Quizzes yet uploaded</div>");}
           %>
           </tbody>
 					</table>
