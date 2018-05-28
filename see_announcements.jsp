@@ -1,4 +1,7 @@
 <%@ page import="java.sql.*"%>
+<%if(session.getAttribute("uId")==null)
+  response.sendRedirect("login.jsp");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -101,7 +104,7 @@ $(document).ready(function(){
 <!--create connection and calling ResultSet for later use-->
 <%!
 Connection con = null;
-Statement announceSt = null,videoSt=null;;
+Statement announceSt = null,videoSt=null;
 
 //,videoSt = null,st2=null;
 //,st3=null,st4=null;
@@ -126,29 +129,6 @@ try{
   videoRs = videoSt.executeQuery("select * from content where courseid='"+courseId+"' and filetype='video' order by unitname");
   int i=1,flag=0;
   %>
-<!--Commented Code-->
-
-<!--<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-    </div>
-  </div>
-</nav>-->
-
 <!--Code Begins-->
 
 
@@ -160,7 +140,7 @@ try{
         <li><a href="course_det_view1.jsp?courseId=<%=courseId%>">Course</a></li>
         <li><a href="see_announcements.jsp?courseId=<%=courseId%>">Announcement</a></li>
         <li><a href="download_pdf.jsp?courseId=<%=courseId%>">Download Content</a></li>
-        <li><a href="#">Quiz</a></li>
+        <li><a href="quiz_list.jsp?courseId=<%=courseId%>">Quiz</a></li>
    </ul>
   </div>
 </nav>

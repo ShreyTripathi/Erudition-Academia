@@ -7,6 +7,27 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>Add Course Details</title>
   <link rel="stylesheet" href="nav_css.css">
+  <style>
+  body {
+   background: url('table.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+  }
+  .main_text{
+    background-color: #eee;
+    padding-left: 1.2em;
+    font-size: 1.2em;
+    box-shadow: 6px 5px #888888;
+  }
+  .panel-title{
+    font-size: 1.4em;
+  }
+  tr td{
+    font-size: 1.25em;
+  }
+  </style>
 </head>
 <body>
 <%
@@ -21,7 +42,7 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 }
 %>
 <jsp:include page="navbar_public.jsp" />
-<div class="container">
+<div class="container  main_text">
 <%
 	Connection con = null;
 	Statement st = null;
@@ -63,18 +84,19 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 		}catch(Exception e){}
 	}
 	%>
-	<h2><%=c_name%></h2>
+	<h1 class="text-center"><%=c_name%></h1>
 	<hr>
 	<form action="course_det_logic.jsp" method="post">
 	<p style="font-size:1.4em">Add Some info:</p>
-	<textarea rows="2" cols="60" name="det" /></textarea>
+	<textarea rows="2" cols="70" name="det" style="font-size:1.4em"/></textarea>
+  <br>
 	    <div class="panel panel-default">
 	    	<div class="panel-heading">
 	      	<h2 class="panel-title">
 	      	  Unit 1
 	     	 </h2>
 	    	</div>
-	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit1:</p><textarea rows="3" cols="50" name="unit1-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit1:</p><textarea rows="3" cols="70" name="unit1-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
@@ -83,7 +105,7 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 	      	  Unit 2
 	     	 </h2>
 	    	</div>
-	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit2:</p><textarea rows="3" cols="50" name="unit2-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit2:</p><textarea rows="3" cols="70" name="unit2-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
@@ -92,7 +114,7 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 	     	 </h2>
          Unit 3
 	    	</div>
-	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit3:</p><textarea rows="3" cols="50" name="unit3-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit3:</p><textarea rows="3" cols="70" name="unit3-info"></textarea>
 		</div>
 	    </div>
 	    <div class="panel panel-default">
@@ -101,13 +123,13 @@ if(!session.getAttribute("type").toString().equals("faculty"))
 	      	  Unit 4
 	     	 </h2>
 	    	</div>
-	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit 4:</p><textarea rows="3" cols="50" name="unit4-info"></textarea>
+	    	<div class="panel-body" style="font-size:1.4em"><p>Enter some info about unit 4:</p><textarea rows="3" cols="70" name="unit4-info"></textarea>
 		</div>
 	    </div>
-	    <table class="table table-bordered">
+	    <table class="table">
 	    <tbody>
 		<tr><td>How to Pass:</td>
-		<td><input type="text" size="50" name="pass_cri"></td>
+		<td><input type="text" size="80" name="pass_cri"></td>
 		</tr>
 		<tr>
 		<td>

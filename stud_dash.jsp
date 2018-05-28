@@ -16,6 +16,20 @@
       padding: 10px;
       //box-shadow: 3px 4px #666666;
     }
+    .main_text{
+      font-size: 1.4em;
+    }
+    .grey_color{
+        background: rgb(238,238,238);
+        background: rgba(238, 238, 238, .5);
+      }
+    body {
+     background: url('my.jpg') no-repeat center center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+      }
     </style>
 <title>DashBoard</title>
 <body>
@@ -23,7 +37,7 @@
   <div class="container-fluid">
   	<jsp:include page="navbar_public.jsp" />
 </div>
-<div class="container text-center" style="font-size:1.4em;">
+<div class="container text-center grey_color main_text" style="font-size:1.4em;">
 <%
 		if(session.getAttribute("type")==null||session.getAttribute("uId")==null)
 		{
@@ -80,7 +94,7 @@
         <%
         do{ String courseId=enrolledRs.getString("courseid");
           %>
-            <tr><td><%=courseId%></td><td><%=enrolledRs.getString("coursename")%></td><td><div class="dropdown"><button class="btn btn-primary dropdown-toggle" style="font-size:1.1em" type="button" data-toggle="dropdown">Select Page<span class="caret"></span></button><ul style="font-size:1.1em" class="dropdown-menu"><li><a href="course_det_view1.jsp?courseId=<%=courseId%>">Course</a></li><li><a href="see_announcements.jsp?courseId=<%=courseId%>">View Announcements</a></li><li><a href="download_pdf.jsp?courseId=<%=courseId%>">Download Content</a></li></ul></div>
+            <tr><td><%=courseId%></td><td><%=enrolledRs.getString("coursename")%></td><td><div class="dropdown"><button class="btn btn-primary dropdown-toggle" style="font-size:1.1em" type="button" data-toggle="dropdown">Select Operation<span class="caret"></span></button><ul style="font-size:1.1em" class="dropdown-menu"><li><a href="doubt_stud.jsp?courseId=<%=courseId%>">Ask Doubts</a></li><li><a href="course_det_view1.jsp?courseId=<%=courseId%>">Go to Course</a></li><li><a href="see_announcements.jsp?courseId=<%=courseId%>">View Announcements</a></li><li><a href="download_pdf.jsp?courseId=<%=courseId%>">Download Content</a></li></ul></div>
             </td></tr>
 
         <%}while(enrolledRs.next());

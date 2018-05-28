@@ -1,4 +1,6 @@
 <%@ page import="java.sql.*, quesPackage.QuestionBean, java.util.*"%>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="com.google.gson.JsonObject"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -91,34 +93,33 @@
   				$("#videoForm").submit();
   			});
   		});
-      jQuery.each($(".topicSelect"),function()
-  		{
-  			$(this).on("click",function(){
-  				$("#topicId").val($(this).parent().children(':first-child').html());
-  				$("#topicForm").submit();
-  			});
-  		});
   });
   </script>
 </head>
 <body>
-  <%!String courseId;%>
+  <%!String courseId,topicId;%>
 <!--create connection and calling ResultSet for later use-->
 <%!
 Connection con = null;
-Statement videoSt=null;
+Statement videoSt=null,st1=null,statement1=null;
 //,st3=null,st4=null;
 
 //rs for course info,pdfRs for pdf and rs2 for video
-ResultSet videoRs=null;
+ResultSet videoRs=null,rs1 = null;
 //,rs2=null,rs3=null,rs4=null;
 
 String dbName = "modif_eru_acad";
 String user= "root";
 String pass= "root";
+String uId = "";
 %>
 <%
 courseId = request.getParameter("courseId");
+topicId = request.getParameter("topicId");
+if(session.getAttribute("uId")==null)
+  response.sendRedirect("login.jsp");
+else
+uId = session.getAttribute("uId").toString();
 try{
   Class.forName("com.mysql.jdbc.Driver");
   con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
@@ -189,85 +190,139 @@ try{
     <hr>
     <%!
       QuestionBean quesBean;
-      ArrayList<QuestionBean> quesList1,quesList2,quesList3;
+      // ArrayList<QuestionBean> quesList1,quesList2,quesList3;
     %>
       <%
+      Gson gsonObj = new Gson();
+      Map<Object,Object> map = null;
+      List<Map<Object,Object>> list = new ArrayList<Map<Object,Object>>();
+      String dataPoints = null;
+      try{
+        Class.forName("com.mysql.jdbc.Driver");
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
+        st1 = con.createStatement();
+        String xVal, yVal;
+        String correctAns="",diff_level="";
+        int i=1,score=0;
+        rs1 = st1.executeQuery("select question.*,user_question.* from question,user_question where question.quesid=user_question.quesid and user_question.userid='"+uId+"' and question.topicid="+topicId+"");
 	       //out.println("<h2>Score: "+session.getAttribute("user_score").toString()+"</h2>");
-          quesList3 = (ArrayList<QuestionBean>)session.getAttribute("quesList3");
-          quesList2 = (ArrayList<QuestionBean>)session.getAttribute("quesList2");
-          quesList1 = (ArrayList<QuestionBean>)session.getAttribute("quesList1");
-
-         for(int k=0;k<quesList3.size();k++)
-         {%><h3><b>Difficulty: High</b></h3>
-           <h4><u><i><b>Question</b></i></u>:</h4>
-           <%quesBean = quesList3.get(k);
-           %><p><%=quesBean.getQuesDet()%></p>
-           <h4><u><i><b>Correct Answer:</b></i></u></h4>
-           <p style="color:green"><%
-                    if(quesBean.getAns().equals("choice1")){out.println(quesBean.getCh1());}
-                    else if(quesBean.getAns().equals("choice2")){out.println(quesBean.getCh2());}
-                    else if(quesBean.getAns().equals("choice3")){out.println(quesBean.getCh3());}
-                    else{out.println(quesBean.getCh4());}
-          %>
-          </p>
-          <%
-          if(quesBean.getIsCorrect()==0){%>
-            <h4><u><i><b>Your Choice</b></i></u>: </h4>
-             <p style="color:red">
-              <%
-              if(quesBean.getStudentChoice().equals("choice1")){out.println(quesBean.getCh1());}
-                                     else if(quesBean.getStudentChoice().equals("choice2")){out.println(quesBean.getCh2());}
-                                     else if(quesBean.getStudentChoice().equals("choice3")){out.println(quesBean.getCh3());}
-                                     else{out.println(quesBean.getCh4());}
-                    %></p>
-           <%}//end of if
-
-         }//end of for
-
-         for(int k=0;k<quesList2.size();k++)
-         {%><h3><b>Difficulty: Medium</b></h3>
-           <h4><u><i><b>Question</b></i></u>:</h4>
-           <%quesBean = quesList2.get(k);
-           %><p><%=quesBean.getQuesDet()%></p>
-            <h4><u><i><b>Correct Answer</b></i></u>:</h4>
-             <p style="color:green"><%if(quesBean.getAns().equals("choice1")){out.println(quesBean.getCh1());}
-                                    else if(quesBean.getAns().equals("choice2")){out.println(quesBean.getCh2());}
-                                    else if(quesBean.getAns().equals("choice3")){out.println(quesBean.getCh3());}
-                                    else{out.println(quesBean.getCh4());}
-            %></p>
+          //quesList3 = (ArrayList<QuestionBean>)session.getAttribute("quesList3");
+          //quesList2 = (ArrayList<QuestionBean>)session.getAttribute("quesList2");
+          //quesList1 = (ArrayList<QuestionBean>)session.getAttribute("quesList1");
+          if(rs1.next())
+          {
+            do{
+                  diff_level = rs1.getString("diff_level");
+                  xVal=Integer.toString(i);
+                  if(rs1.getInt("correct")==1)
+                  {
+                    if(diff_level.equals("high"))
+                    {
+                      yVal= Integer.toString(5);
+                      score+=5;
+                    }
+                    else if(diff_level.equals("medium"))
+                    {
+                      yVal= Integer.toString(3);
+                      score+=3;
+                    }
+                    else
+                    {
+                      yVal= Integer.toString(2);
+                      score+=2;
+                    }
+                  }
+                  else
+                  {
+                    yVal = Integer.toString(0);
+                  }
+                  map = new HashMap<Object,Object>(); map.put("x", Integer.parseInt(xVal)); map.put("y", Double.parseDouble(yVal)); list.add(map);
+                  dataPoints = gsonObj.toJson(list);
+                  i++;
+              %>
+            <p><strong style="font-size:1.2em"><i>Question </i><%=i-1%></strong>:</p>
+            <p><strong><i>Difficulty</i></strong>: <i> <%=diff_level%></i></p>
+            <p><%=rs1.getString("quesdet")%></p>
+            <p><b>Your Choice</b>:<span style="color:blue"><i><%=rs1.getString("user_choice")%></i></span></p>
+            <p><b>Correct Answer</b>:<span style="color:green"><i><%correctAns=rs1.getString("correct_ans"); out.println(rs1.getString(correctAns));%></i></span></p>
+            <br>
+            <%}while(rs1.next());
+            %>
+            <h1 style="color:Green;background-color:#51F051"><b><i><u>Score</u>:</i></b> <%=score%></h1>
+            <br>
             <%
-           if(quesBean.getIsCorrect()==0){%>
-              <h4><u><i><b>Your Choice</b></i></u>: </h4>
-              <p style="color:red"><%if(quesBean.getStudentChoice().equals("choice1")){out.println(quesBean.getCh1());}
-                                     else if(quesBean.getStudentChoice().equals("choice2")){out.println(quesBean.getCh2());}
-                                     else if(quesBean.getStudentChoice().equals("choice3")){out.println(quesBean.getCh3());}
-                                     else{out.println(quesBean.getCh4());}
-              %></p>
-           <%}//end of if
-         }//end of for
-         for(int k=0;k<quesList1.size();k++)
-         {%><h3><b>Difficulty: Low</b></h3>
-           <h4><u><i><b>Question</b></i></u>:</h4>
-           <%quesBean = quesList1.get(k);
-           %><p><%=quesBean.getQuesDet()%></p>
-           <h4><u><i><b>Correct Answer</b></i></u>:</h4>
+          }
+          else{
+            response.sendRedirect("stud_dash.jsp");
+          }
+         //session.removeAttribute("QuesNo");
+         session.removeAttribute("QuesBean");
+         // session.removeAttribute("quesList1");
+         // session.removeAttribute("quesList2");
+         // session.removeAttribute("quesList3");
+       }
+       catch(Exception e){
 
-            <p style="color:green"><%if(quesBean.getAns().equals("choice1")){out.println(quesBean.getCh1());}
-                                   else if(quesBean.getAns().equals("choice2")){out.println(quesBean.getCh2());}
-                                   else if(quesBean.getAns().equals("choice3")){out.println(quesBean.getCh3());}
-                                   else{out.println(quesBean.getCh4());}
-            %></p>
-            <%
-          if(quesBean.getIsCorrect()==0){%>
-             <h4><u><i><b>Your Choice</b></i></u>: </h4>
-             <p style="color:red"><%if(quesBean.getStudentChoice().equals("choice1")){out.println(quesBean.getCh1());}
-                                    else if(quesBean.getStudentChoice().equals("choice2")){out.println(quesBean.getCh2());}
-                                    else if(quesBean.getStudentChoice().equals("choice3")){out.println(quesBean.getCh3());}
-                                    else{out.println(quesBean.getCh4());}
-               %></p>
-          <%}//end of if
-         }//end of for
+ 			out.println("<div  style='width: 50%; margin-left: auto; margin-right: auto; margin-top: 200px;'>Could not connect to the database. Please check if you have mySQL Connector installed on the machine - if not, try installing the same.</div>");
+      dataPoints=null;
+ 			out.println(e);
+ 		}//end of catch
+ 		finally{
+ 			try{
+ 				videoSt.close();
+ 			}catch(Exception e){}
+ 			try{
+ 				con.close();
+ 			}catch(Exception e){}
+ 		}//end of finally
+
+    //start of code for graphs
+
+    // try
+    // {
+    //   Class.forName("com.mysql.jdbc.Driver");
+    //   con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
+    //   statement1 = con.createStatement();
+    //   String xVal, yVal;
+    //   String correctAns="";
+    //   rs1 = statement1.executeQuery("select question.*,user_question.* from question,user_question where question.quesid=user_question.quesid and user_question.userid='"+uId+"' and question.topicid="+topicId+"");
+    //   int i=1;
+    //   while(rs1.next())
+    //   {
+    //     xVal=Integer.toString(i);
+    //     if(rs1.getInt("correct")==1)
+    //     {
+    //       if(diff_level").equals("high"))
+    //       yVal= Integer.toString(5);
+    //     else if(diff_level").equals("medium"))
+    //       yVal= Integer.toString(3);
+    //     else
+    //         yVal= Integer.toString(2);
+    //     }
+    //     else
+    //     {
+    //       yVal = Integer.toString(0);
+    //     }
+    //     map = new HashMap<Object,Object>(); map.put("x", Integer.parseInt(xVal)); map.put("y", Double.parseDouble(yVal)); list.add(map);
+    //     dataPoints = gsonObj.toJson(list);
+    //     i++;
+    //   }
+    // }
+    // catch(Exception e){
+	  //    out.println("<div  style='width: 50%; margin-left: auto; margin-right: auto; margin-top: 200px;'>Could not connect to the database. Please check if you have mySQL Connector installed on the machine - if not, try installing the same.</div>");
+    //    dataPoints = null;
+    // }//end of catch
+ // finally{
+ //   try{
+ //     videoSt.close();
+ //   }catch(Exception e){}
+ //   try{
+ //     con.close();
+ //   }catch(Exception e){}
+ // }//end of finally
+
   %>
+  <!--Commented code-->
     <!-- <div class="col-sm-2 sidenav">
       <div class="well">
         <p>ADS</p>
@@ -276,11 +331,36 @@ try{
         <p>ADS</p>
       </div>
     </div> -->
-  </div>
+
+<!--The below Code is for displaying chart-->
+<script type="text/javascript">
+window.onload = function() {
+
+<% if(dataPoints != null) { %>
+var chart = new CanvasJS.Chart("chartContainer", {
+animationEnabled: true,
+exportEnabled: true,
+title: {
+  text: "Quiz Performance Chart"
+},
+data: [{
+  type: "area", //change type to bar, line, area, pie, etc
+  dataPoints: <%out.print(dataPoints);%>
+}]
+});
+chart.render();
+<% } %>
+
+}
+</script>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<br><br><br>
+</div>
 </div>
 
 <!-- <footer class="container-fluid text-center">
-  <p>Footer Text</p>
+<p>Footer Text</p>
 </footer> -->
 
 </body>

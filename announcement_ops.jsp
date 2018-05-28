@@ -9,12 +9,26 @@
 .main_text{
   font-size: 1.4em;
 }
+td{
+  font-size: 1.2em;
+  border-radius: 1.005em;
+}
+body {
+ background: url('table.jpg') no-repeat center center fixed;
+ -webkit-background-size: cover;
+ -moz-background-size: cover;
+ -o-background-size: cover;
+ background-size: cover;
+}
+.grey_color{
+    background-color:#eee;
+  }
 </style>
 <link rel="stylesheet" href="nav_css.css">
 </head>
 <body>
 <jsp:include page="navbar_public.jsp" />
-<div class="container main_text text-center">
+<div class="container main_text text-center grey_color">
 <%
   String courseId = request.getParameter("courseId");
 	if(session.getAttribute("uId")==null||!session.getAttribute("type").toString().equals("faculty"))
@@ -46,8 +60,8 @@
 
         <h1>Announcements Table</h1>
         <p style="font-size:1.2em">CourseId: <%=courseId%></p>
-        <table class="table table-bordered">
-        <thead><tr><th>Announcement No.</th><th>Subject</th><th>Content</th><th>Date</th></tr></thead>
+        <table class="table">
+        <thead><tr><th style="font-size:1.2em">Announcement No.</th><th style="font-size:1.2em">Subject</th><th style="font-size:1.2em">Content</th><th style="font-size:1.2em">Date</th></tr></thead>
         <tbody>
       <%
         do{%>

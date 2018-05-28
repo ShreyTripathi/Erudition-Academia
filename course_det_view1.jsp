@@ -143,29 +143,6 @@ try{
   enrolledRs = enrolledSt.executeQuery("select * from enrolled where courseId='"+courseId+"' and userid='"+session.getAttribute("uId").toString()+"'");
   int i=1,flag=0;
   %>
-<!--Commented Code-->
-
-<!--<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Logo</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-    </div>
-  </div>
-</nav>-->
-
 <!--Code Begins-->
 
 
@@ -175,7 +152,9 @@ try{
 <nav class="navbar navbar-default">
   <div class="container">
   <div class="navbar-header fixpos">
-  <%if(rs1.next()){%><a href="my_categories.jsp"><%=rs1.getString("category")%></a>&gt;<a href="my_course_list.jsp"><%=rs1.getString("coursename")%></a><%}%>
+  <%if(rs1.next()){
+    String cat=rs1.getString("category");
+    %><a href="my_course_list.jsp?cat=<%=cat%>"><%=cat%></a>&gt;<a href=""><%=rs1.getString("coursename")%></a><%}%>
   </div>
   <ul class="nav navbar-nav navbar-right">
         <li><a href="course_det_view1.jsp?courseId=<%=courseId%>">Course</a></li>

@@ -15,7 +15,13 @@
       margin-bottom: 0;
       border-radius: 0;
     }
-
+    body {
+     background: url('table.jpg') no-repeat center center fixed;
+     -webkit-background-size: cover;
+     -moz-background-size: cover;
+     -o-background-size: cover;
+     background-size: cover;
+    }
     /* Set height of the grid so .sidenav can be 100% (adjust as needed)*/
     .row.content {height: 450px;padding-top: 1.5em;padding-left: 1.8em;}
 
@@ -73,6 +79,9 @@
       border: 1px solid;
       box-shadow: 6px 5px #888888;
     }
+    video { width: 90%; height: auto;}
+video source { width: 100%; height: auto; }
+
   </style>
 <script>
 $(document).ready(function(){
@@ -188,7 +197,7 @@ try{
     <div class="col-sm-8 text-center main_text">
     <h1><%=request.getParameter("videoTitle")%></h1>
     <hr style="height:1px; border:none; color:blue; background-color:#ddd;">
-    <p><video width="800" height="600" onclick="this.pause()" controls>
+    <p><video width="800" height="600" onclick="this.pause()" media="screen and (min-width:800px)" controls>
       <source src="<%=videoFile%>">
         Please Update Your Browser In Order to Watch The Video.
         </video>

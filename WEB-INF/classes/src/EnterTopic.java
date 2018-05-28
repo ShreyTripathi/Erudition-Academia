@@ -107,9 +107,9 @@ public class EnterTopic extends HttpServlet{
         else
         quesBean.setAns(quesBean.getCh4());
         quesBean.setDiff(rs.getString("diff_level"));
-        quesBean.setAttempted(0);
+        quesBean.setAttempted(3);
         quesBean.setStudentChoice("choice5");
-        quesBean.setIsCorrect(2);
+        quesBean.setIsCorrect(3);
         quesBean.setTopicName(rs.getString("topicname"));
         if(quesBean.getDiff().equals("low"))
         quesList1.add(quesBean);
@@ -147,7 +147,7 @@ public class EnterTopic extends HttpServlet{
   //   if(j<quesList2.size()&&(Integer.parseInt(session.getAttribute("QuesNo").toString())==0||(this.calculate()==2)||(this.calculate()==3&&k>=quesList3.size())))
   //   {
   //     //System.out.println(j);
-  //     quesBean=quesList2.get(j);
+  //     quesBean=quesList2.get(Integer.parseInt(session.getAttribute("j").toString()));
   //     session.setAttribute("j",j+1);
   //     session.setAttribute("QuesNo",Integer.parseInt(session.getAttribute("QuesNo").toString())+1);
   //     session.setAttribute("QuesBean",quesBean);
@@ -156,7 +156,7 @@ public class EnterTopic extends HttpServlet{
   //   if(k<quesList3.size()&&this.calculate()==3)
   //   {
   //     //System.out.println(k);
-  //     quesBean=quesList3.get(k);
+  //     quesBean=quesList3.get(Integer.parseInt(session.getAttribute("k").toString()));
   //     session.setAttribute("k",k+1);
   //     session.setAttribute("QuesNo",Integer.parseInt(session.getAttribute("QuesNo").toString())+1);
   //     session.setAttribute("QuesBean",quesBean);
@@ -164,7 +164,7 @@ public class EnterTopic extends HttpServlet{
   //   }
   //   if(i<quesList1.size()&&(this.calculate()==1||(j>=quesList2.size()&&this.calculate()==2)||(k>=quesList3.size()&&j>=quesList2.size()&&this.calculate()==3)))
   //   {
-  //     quesBean = quesList1.get(i);
+  //     quesBean = quesList1.get(Integer.parseInt(session.getAttribute("i").toString()));
   //     session.setAttribute("i",i+1);
   //     session.setAttribute("QuesNo",Integer.parseInt(session.getAttribute("QuesNo").toString())+1);
   //     session.setAttribute("QuesBean",quesBean);
@@ -174,25 +174,45 @@ public class EnterTopic extends HttpServlet{
   // }
   private boolean calculate()
   {
+    session.setAttribute("QuesNo",Integer.parseInt(session.getAttribute("QuesNo").toString())+1);
     QuestionBean quesBean = null;
     if(session.getAttribute("QuesBean")!=null)
     quesBean =(QuestionBean)session.getAttribute("QuesBean");
+    else
+    {
+      if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
+      {
+        session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+        session.setAttribute("j",Integer.parseInt(session.getAttribute("j").toString())+1);
+        return true;
+      }
+      else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
+      {
+        session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+        session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
 
-    if(session.getAttribute("QuesBean")==null||quesBean.getDiff().equals("medium"))
+    if(quesBean.getDiff().equals("medium"))
     {
       if(quesBean.getAttempted()==0)
       {
         quesBean.setIsCorrect(2);
         if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
         {
-          session.setAttribute("QuesBean",quesList2.get(j));
-          session.setAttribute("j",j+1);
+          session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+          session.setAttribute("j",Integer.parseInt(session.getAttribute("j").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else
@@ -206,20 +226,20 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(1);
         if(Integer.parseInt(session.getAttribute("k").toString())<quesList3.size())
         {
-          session.setAttribute("QuesBean",quesList3.get(k));
-          session.setAttribute("k",k+1);
+          session.setAttribute("QuesBean",quesList3.get(Integer.parseInt(session.getAttribute("k").toString())));
+          session.setAttribute("k",Integer.parseInt(session.getAttribute("k").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
         {
-          session.setAttribute("QuesBean",quesList2.get(j));
-          session.setAttribute("j",j+1);
+          session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+          session.setAttribute("j",Integer.parseInt(session.getAttribute("j").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else{
@@ -230,8 +250,8 @@ public class EnterTopic extends HttpServlet{
          quesBean.setIsCorrect(0);
          if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
          {
-           session.setAttribute("QuesBean",quesList1.get(i));
-           session.setAttribute("i",i+1);
+           session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+           session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
            return true;
          }
          else
@@ -249,8 +269,8 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(2);
         if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else
@@ -264,14 +284,14 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(1);
         if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
         {
-          session.setAttribute("QuesBean",quesList2.get(j));
-          session.setAttribute("j",j+1);
+          session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+          session.setAttribute("j",Integer.parseInt(session.getAttribute("j").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else
@@ -285,8 +305,8 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(0);
         if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else
@@ -303,20 +323,20 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(2);
         if(Integer.parseInt(session.getAttribute("k").toString())<quesList3.size())
         {
-          session.setAttribute("QuesBean",quesList3.get(k));
-          session.setAttribute("k",k+1);
+          session.setAttribute("QuesBean",quesList3.get(Integer.parseInt(session.getAttribute("k").toString())));
+          session.setAttribute("k",Integer.parseInt(session.getAttribute("k").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
         {
-          session.setAttribute("QuesBean",quesList2.get(j));
-          session.setAttribute("j",j+1);
+          session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+          session.setAttribute("j",Integer.parseInt(session.getAttribute("k").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else{
@@ -328,20 +348,20 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(1);
         if(Integer.parseInt(session.getAttribute("k").toString())<quesList3.size())
         {
-          session.setAttribute("QuesBean",quesList3.get(k));
-          session.setAttribute("k",k+1);
+          session.setAttribute("QuesBean",quesList3.get(Integer.parseInt(session.getAttribute("k").toString())));
+          session.setAttribute("k",Integer.parseInt(session.getAttribute("k").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
         {
-          session.setAttribute("QuesBean",quesList2.get(j));
-          session.setAttribute("j",j+1);
+          session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+          session.setAttribute("j",Integer.parseInt(session.getAttribute("j").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
-          session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("QuesBean",quesList1.get(Integer.parseInt(session.getAttribute("i").toString())));
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else{
@@ -353,14 +373,14 @@ public class EnterTopic extends HttpServlet{
         quesBean.setIsCorrect(0);
         if(Integer.parseInt(session.getAttribute("j").toString())<quesList2.size())
         {
-          session.setAttribute("QuesBean",quesList2.get(j));
-          session.setAttribute("j",j+1);
+          session.setAttribute("QuesBean",quesList2.get(Integer.parseInt(session.getAttribute("j").toString())));
+          session.setAttribute("j",Integer.parseInt(session.getAttribute("j").toString())+1);
           return true;
         }
         else if(Integer.parseInt(session.getAttribute("i").toString())<quesList1.size())
         {
           session.setAttribute("QuesBean",quesList1.get(i));
-          session.setAttribute("i",i+1);
+          session.setAttribute("i",Integer.parseInt(session.getAttribute("i").toString())+1);
           return true;
         }
         else
@@ -371,6 +391,7 @@ public class EnterTopic extends HttpServlet{
     }
     else{return false;}
   }
+
   public boolean enterIntoDB(QuestionBean quesBean)
   {
     String dbName = "modif_eru_acad";

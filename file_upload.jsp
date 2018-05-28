@@ -7,10 +7,28 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <title>File Upload</title>
   <link rel="stylesheet" href="nav_css.css">
+  <style>
+  .main_text{
+    background-color: #eee;
+    padding-left: 1.2em;
+    font-size: 1.02em;
+    box-shadow: 6px 5px #888888;
+  }
+  body {
+   background: url('table.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+  }
+  tr td{
+    font-size: 1.25em;
+  }
+  </style>
 </head>
 <body>
 <jsp:include page="navbar_faculty.jsp" />
-<div class="container">
+<div class="container main_text">
 
     <%
 	if(session.getAttribute("type")==null||session.getAttribute("uId")==null)

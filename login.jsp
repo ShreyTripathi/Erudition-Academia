@@ -12,7 +12,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="index_css.css"/>
 <link rel="stylesheet" href="nav_css.css">
+	<script>
+		$(document).ready(function(){
+				$(".panel").show();
+		});
+	</script>
 </head>
+<script>
+	$(document).ready(function(){
+			$(".panel").show(1450);
+	});
+</script>
 <body>
 <%
 	if(session.getAttribute("uId")!=null)
@@ -29,7 +39,7 @@
 %>
 <!--Form to be submitted to the login Servlet-->
 
-<jsp:include page="navbar_public.jsp" />
+<jsp:include page="navbar_login.jsp" />
 <%
 if(request.getAttribute("error")!=null)
 {
@@ -40,7 +50,7 @@ if(request.getAttribute("error")!=null)
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                  <strong>Login</strong>
+                  <h2 align="center">Login Form</h2>
                 </div>
                 <div class="panel-body">
 	<form class="form-horizontal" role="form" action="login_logic.jsp" method="POST">
@@ -79,7 +89,8 @@ if(request.getAttribute("error")!=null)
 		</form>
 	   </div>
 	   <div class="panel-footer">
-                    Not Registered? <a href="register.jsp">Register here</a></div>
+                    <h4>Not Registered? <a href="register.jsp">Register here</a></h4>
+			</div>
            </div>
         </div>
     </div>

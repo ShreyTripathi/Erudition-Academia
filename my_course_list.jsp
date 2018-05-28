@@ -102,10 +102,36 @@ $(document).ready(function(){
         <%
 				do
 				{   String courseId = rs.getString("courseid");
+            String courseImage = rs.getString("imagepath");
+            if(courseImage==null)
+            {
+              if(category.equals("Business"))
+              {
+                courseImage="business.jpg";
+              }
+              else if(category.equals("Technology"))
+              {
+                courseImage="ea.jpeg";
+              }
+              else if(category.equals("Psychology"))
+              {
+                courseImage="psyc.jpeg";
+              }
+              else if(category.equals("Social Sciences"))
+              {
+                courseImage="socialScience.jpeg";
+              }
+              else if(category.equals("Math and Learning"))
+              {
+                courseImage="math.jpg";
+              }
+              else
+              courseImage="sky-space-dark-galaxy.jpg";
+            }
 					%>
 						    <a href="course_det_view1.jsp?courseId=<%=courseId%>"><div class="col-md-4">
 						      <div class="thumbnail">
-						        <img class="myimage" src="ea.jpeg" alt="Erudition Academia" style="width:100%;">
+						        <img class="myimage" src="<%=courseImage%>" alt="Erudition Academia" style="width:100%;">
 						          <div class="caption">
                       <div class="mytext">
 							    <p class="cId"><%=courseId%></p>

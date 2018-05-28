@@ -39,7 +39,7 @@
 			st = con.createStatement();
 			if(utype.equals("faculty"))
 			{
-				rs = st.executeQuery("Select * from faculty where fuserid='"+uid+"'");
+				rs = st.executeQuery("Select faculty.*,student.* from faculty,student where fuserid='"+uid+"' or suserid='"+uid+"'");
 				if(rs.next()){
 				%>
 					<div class = "container">
@@ -59,7 +59,7 @@
 		  }
 			else
 			{
-				rs = st.executeQuery("Select * from student where suserid='"+uid+"'");
+				rs = st.executeQuery("Select faculty.*,student.* from faculty,student where fuserid='"+uid+"' or suserid='"+uid+"'");
 				if(rs.next())
         {%>
           <div class = "container">

@@ -1,5 +1,5 @@
 body {
- background: url('login_image.jpg') no-repeat center center fixed;
+ background: url('Blurred-city-lights.jpg') no-repeat center center fixed;
  -webkit-background-size: cover;
  -moz-background-size: cover;
  -o-background-size: cover;
@@ -11,4 +11,12 @@ body {
 }
 .panel-heading .panel-footer{
   font-size: 1.3em;
+}
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding-top: .5em;
+    padding-bottom: .5em;
 }

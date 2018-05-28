@@ -10,19 +10,24 @@
     font-size: 1.4em;
     padding: 1.5em;
   }
-  </style>
-  <link rel="stylesheet" href="nav_css.css"/>
-  <script>
-    function add_newCat()
-    {
-      $("#my_cat").hide();
-      $("#oldCat").attr('name','');
-      var toshow = document.getElementById("newCat");
-      var newCategory = document.getElementById("newCategory");
-      toshow.style.display="block";
-      $('#newCategory').attr('name', 'category');
+  .grey_color{
+      background-color:#eee;
     }
-  </script>
+  .text_table{
+    font-size:1.2em;
+  }
+  body {
+   background: url('table.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+  }
+  </style>
+
+
+  <link rel="stylesheet" href="nav_css.css"/>
+
 </head>
 
 <body>
@@ -31,46 +36,21 @@
 	{
 		response.sendRedirect("login.jsp");
 	}
-  Connection con = null;
-  Statement st = null;
-
-  ResultSet rs = null;
-
-  String dbName = "modif_eru_acad";
-  String user= "root";
-  String pass= "root";
-
-  int i=0;
   %>
 	<jsp:include page="navbar_public.jsp" />
-<div class="container main_text text-center" style="background-color:#eee">
+<div class="container main_text text-center grey_color">
   <h1>Enter the Course Basic Info:</h1>
   <hr>
 	<form action="add_course_logic.jsp" method="post">
 
-	<table class="table text-left" style="font-size:1.2em">
-  <tr><td>Select Category: </td><td id="my_cat"><select name="category" id="oldCat"><%try{
-    Class.forName("com.mysql.jdbc.Driver");
-    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
-    st = con.createStatement();
-    rs = st.executeQuery("select distinct course.category from course");
-    session.removeAttribute("courseid");
-
-      if(rs.next())
-      {
-        do
-        {
-          String cat = rs.getString("category");
-          %><option value="<%=cat%>"><%=cat%></option>
-          <%}while(rs.next());//end of while
-      }//end of if
-    }
-    catch(Exception e){out.println("<div class='alert-danger'>Problem :"+e+"</div>");}
-    finally{
-      try{st.close();}catch(Exception e){}
-      try{con.close();}catch(Exception e){}
-    }
-    %></select></td><td id="newCat" style="display:none"><input type="text" id="newCategory"></td><td><input type="button" value="Add new Category" onclick="add_newCat()"></td></tr>
+	<table class="table text-left text_table">
+  <tr><td>Select Category: </td><td id="my_cat"><select name="category">
+  <option value="Business">Business</option>
+  <option value="Technology">Technology</option>
+  <option value="Psychology">Psychology</option>
+  <option value="Social Sciences">Social Sciences</option>
+  <option value="Math and Learning">Math and Learning</option>
+  </select></td></tr>
 	<tr><td>Course Id: </td><td><input type="text" name="course_id" size="8" required></td></tr>
 	<tr><td>Course Name: </td><td><input type="text" size="50" name="course_name" required></td></tr>
 	<tr><td>Start Date: </td><td><input type="date" name="sdate" size="12" required></td></tr>

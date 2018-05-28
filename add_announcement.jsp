@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>Add Announcements</title>
 </head>
 <style>
 #mynav{
@@ -37,7 +38,7 @@
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
 			int i = st.executeUpdate("insert into announcement(courseid,heading,content,dated) values('"+courseId+"','"+heading+"','"+content+"','"+dated+"')");
-			response.sendRedirect("announcement_ops.jsp?courseId=<%courseId%>");
+			response.sendRedirect("announcement_ops.jsp?courseId="+courseId);
 		}catch(Exception e){
 		%>
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>

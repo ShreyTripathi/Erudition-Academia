@@ -104,7 +104,7 @@ $(document).ready(function(){
 					%>
 						    <a href="my_course_list.jsp?cat=<%=cat%>"><div class="col-md-4">
 						      <div class="thumbnail">
-						        <img class="myimage" src="ea.jpeg" alt="Erudition Academia" style="width:100%;">
+						        <img class="myimage" src="courses_bg.jpeg" alt="Erudition Academia" style="width:100%;">
 						          <div class="caption">
                       <div class="mytext">
 							    <p class="cat"><%=cat%></p>

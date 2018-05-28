@@ -21,6 +21,10 @@
 </head>
 <body>
 <%
+    if(session.getAttribute("uId")==null)
+    {
+      response.sendRedirect("login.jsp");
+    }
     String cat = request.getParameter("category");
 		String c_id = request.getParameter("course_id");
 		String c_name = request.getParameter("course_name");

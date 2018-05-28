@@ -12,10 +12,24 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 1.2em;
-    border: 1px solid;
+    border: 0.1px;
     padding: 10px;
     //box-shadow: 3px 4px #666666;
   }
+  .main_text{
+    font-size: 1.4em;
+  }
+  .grey_color{
+      background: rgb(238,238,238);
+      background: rgba(238, 238, 238, .5);
+    }
+  body {
+   background: url('my.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+    }
   </style>
 <script>
 $(document).ready(function(){
@@ -42,7 +56,7 @@ $(document).ready(function(){
 
 	<jsp:include page="navbar_faculty.jsp" />
 
-<div class="container text-center" style="font-size:1.2em;">
+<div class="container text-center main_text grey_color" style="font-size:1.2em;">
 <%
 		if(session.getAttribute("type")==null||session.getAttribute("uId")==null)
 		{
@@ -50,7 +64,7 @@ $(document).ready(function(){
 		}
 		else if(session.getAttribute("type").toString().equals("student"))
 		{
-			request.getRequestDispatcher("stud_dash.jsp").forward(request,response);
+			response.sendRedirect("stud_dash.jsp");
 		}
 		if(session.getAttribute("courseid")!=null)
 		{
@@ -95,7 +109,7 @@ $(document).ready(function(){
 
 			if(rs.next())
 			{%>
-				<table class="table table-bordered mytable">
+				<table class="table mytable">
         <tr><th>Parameter</th><th>Value</th></tr>
 				<tr><td><strong>User Name:</strong></td><td><%=rs.getString("ffname")%> <%=rs.getString("flname")%></td></tr>
 				<tr><td><strong>D.O.B. :</strong></td><td><%=rs.getString("dob")%></td></tr>
@@ -113,7 +127,7 @@ $(document).ready(function(){
 					{    String courseId =rs2.getString("courseid");
             %>
 						<tr><td><%=courseId%></td><td><%=rs2.getString("coursename")%></td><td><div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" style="font-size:1.1em" type="button" data-toggle="dropdown">Select Operation<span class="caret"></span></button><ul style="font-size:1.1em" class="dropdown-menu"><li><a href="file_upload.jsp?courseId=<%=courseId%>">Add File</a></li><li><a href="enter_question.jsp?courseId=<%=courseId%>">Add Quiz</a></li></ul></div></td></tr>
+    <button class="btn btn-primary dropdown-toggle" style="font-size:1.1em" type="button" data-toggle="dropdown">Select Operation<span class="caret"></span></button><ul style="font-size:1.1em" class="dropdown-menu"><li><a href="doubt_fac.jsp?courseId=<%=courseId%>">Answer Doubts</a></li><li><a href="file_upload.jsp?courseId=<%=courseId%>">Add File</a></li><li><a href="enter_question.jsp?courseId=<%=courseId%>">Add Quiz</a></li></ul></div></td></tr>
 					<%}while(rs2.next());
 				}
 				%>

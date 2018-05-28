@@ -34,7 +34,7 @@ public class FileUploadServlet extends HttpServlet {
   {
 	String done = "";
 	String unitName ="";
-	HttpSession session = request.getSession();
+	HttpSession session = request.getSession(false);
 	String page="";
 	String sName="";
   String fType="";

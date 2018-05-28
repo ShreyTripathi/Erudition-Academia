@@ -25,13 +25,23 @@
     font-size: 1.3em;
     padding: 0em;
   }
+  body {
+   background: url('table.jpg') no-repeat center center fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+  }
+  textarea{
+    border-radius: 1.0002em;
+  }
   </style>
   <link rel="stylesheet" href="nav_css.css">
     <title>Enter Question For Quiz</title>
 </head>
 <body>
 <%
-	if(!session.getAttribute("type").toString().equals("faculty"))
+	if(session.getAttribute("type")==null||!session.getAttribute("type").toString().equals("faculty"))
 	{
 		response.sendRedirect("login.jsp");
 	}
@@ -81,7 +91,7 @@
 	<tr><td><strong>Topic Name: </strong></td><td><input type="text" size="45" name="topic" required></td></tr>
   <tr><td><strong>Last Date For Submission: </strong></td><td><input type="date" name="last_date" required></td></tr>
   <%}%>
-	<tr><td><strong>Question: </strong></td><td><textarea rows="2" cols="80" name="det" id="det" required></textarea></td></tr>
+	<tr><td><strong>Question: </strong></td><td><textarea rows="2" cols="80" name="det" id="det" style="whitespace: pre-wrap;" required></textarea></td></tr>
 	<tr><td><strong>Choice1: </strong></td><td><textarea rows="2" cols="80" name="choice1" id="ch1" required></textarea></td></tr>
 	<tr><td><strong>Choice2: </strong></td><td><textarea rows="2" cols="80" name="choice2" id="ch2" required></textarea></td></tr>
 	<tr><td><strong>Choice3: </strong></td><td><textarea rows="2" cols="80" name="choice3" id="ch3" required></textarea></td></tr>
@@ -96,7 +106,7 @@
 	<tr><td>High: </td><td><input type="radio" value="high" name="diff_level"></td></tr>
 	<tr><td>Medium: </td><td><input type="radio" value="medium" name="diff_level"></td></tr>
 	<tr><td>Low: </td><td><input type="radio" value="low" name="diff_level"></td></tr>
-	<tr><td></td><td><input type="submit" value="submit question" name="quiz_stat"></td></tr>
+	<tr><td></td><td><input type="submit" value="enter question" name="quiz_stat"></td></tr>
   <input type="hidden" name="courseId" value="<%=courseId%>">
 	<%if(session.getAttribute("topic_name")!=null){%>
 		<tr><td><input type="submit" value="All Questions Submitted" name="quiz_stat" onclick="noMoretoSubmit()"></td></tr>

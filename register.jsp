@@ -4,18 +4,32 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="register_css.css"></head>
+        <link rel="stylesheet" href="register_css.css">
+        <link rel="stylesheet" href="nav_css.css">
+    <title>Register</title>
+  </head>
+        <script>
+      		$(document).ready(function(){
+      				$(".panel").show(1450);
+      		});
+      	</script>
         <body>
+        <%if(session.getAttribute("uId")!=null)
+          {
+            response.sendRedirect("fac_dash.jsp");
+          }
+        %>
+        <jsp:include page="navbar_login.jsp" />
           <div class="container">
             <div class="row">
               <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
+                <div class="panel panel-default" hidden>
                   <div class="panel-heading">
-                    <h1 class="" align="center">Registration Form</h1>
+                    <h2 class="" align="center">Registration Form</h2>
                   </div>
                   <div class="panel-body">
                     <form class="form-horizontal" role="form" action="register_logic.jsp" method="post">
-                      <table>
+                      <table cellpadding="10">
                         <tr>
                           <td>
                             <label>User Type:
@@ -177,8 +191,13 @@
                                                                                   <br>
                                                                                   <input type="submit" value="Enter Details"></td>
                                                                                 </tr>
+                                                                              </table>
                                                                               </form>
                                                                             </div>
+                                                                            <div class="panel-footer">
+                                                                                          <h34 Already A member <a href="login.jsp">Login here</a></h4>
+                                                                            </div>
+
                                                                           </div>
                                                                         </div>
                                                                       </div>

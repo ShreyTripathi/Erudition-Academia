@@ -30,7 +30,8 @@
 		}
 
 		else if(session.getAttribute("topic_name")==null)
-				{topic = request.getParameter("topic").toLowerCase();
+				{
+          topic = request.getParameter("topic");
           flag=1;
       }
 			else

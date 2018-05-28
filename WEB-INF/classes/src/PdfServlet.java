@@ -6,7 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
+
 import java.sql.*;
 
 public class PdfServlet extends HttpServlet {
@@ -18,11 +18,11 @@ public class PdfServlet extends HttpServlet {
 	String dbName = "modif_eru_acad";
 	String user="root";
 	String pass="root";
-	
+
 	String path="";		//it will contain the complete path of the pdf file
 	String fileName="";	//the name of the file to be opened
 	String c_id="";
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		fileName = request.getParameter("fileName");
 		try{
@@ -34,7 +34,7 @@ public class PdfServlet extends HttpServlet {
 			{
 				c_id = rs.getString("courseid");
 				path = rs.getString("path");
-			}			
+			}
 		}
 		catch(Exception e)
 		{
@@ -46,7 +46,7 @@ public class PdfServlet extends HttpServlet {
 		File file = new File(path);
 		response.setHeader("Content-Type",    getServletContext().getMimeType(file.getName()));
 		response.setHeader("Content-Length", String.valueOf(file.length()));
-		response.setHeader("Content-Disposition", "inline; filename="+fileName);
+		response.setHeader("Content-Disposition", "inline; filename=\""+fileName+"\"");
 		Files.copy(file.toPath(), response.getOutputStream());
 	}
 }

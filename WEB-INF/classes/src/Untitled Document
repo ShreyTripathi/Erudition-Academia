@@ -1,0 +1,85 @@
+import java.sql.*;
+import java.io.IOException;
+import quesPackage.QuestionBean;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+
+public class EnterTopic2 extends HttpServlet{
+  ArrayList<QuestionBean> highL = new ArrayList<QuestionBean>();
+  ArrayList<QuestionBean> medL = new ArrayList<QuestionBean>();
+  ArrayList<QuestionBean> lowL = new ArrayList<QuestionBean>();
+  Connection con=null;
+  Statement st=null;
+  ResultSet rs=null;
+
+  HttpSession session=null;
+
+  public void doPost(HttpServletRequest request, HttpServletResponse response)throws IOException,ServletException
+  {
+    String courseId = request.getParameter("courseId");
+    session = request.getSession();
+    int topicId = Integer.parseInt(request.getParameter("topicId"));
+    String dbName = "modif_eru_acad";
+    String user = "root";
+    String pass = "root";
+    try{
+      Class.forName("com.mysql.jdbc.Driver");
+      Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
+      Statement st = con.createStatement();
+      ResultSet rs = st.executeQuery("Select question.*,topicname from question,topic where topic.topicid="+topicId+" and question.topicid=topic.topicid");
+      while(rs.next())
+      {
+        QuestionBean quesBean = new QuestionBean();
+        quesBean.setQuesId(rs.getInt("quesid"));
+        quesBean.setQuesDet(rs.getString("quesdet"));
+        quesBean.setCh1(rs.getString("choice1"));
+        quesBean.setCh2(rs.getString("choice2"));
+        quesBean.setCh3(rs.getString("choice3"));
+        quesBean.setCh4(rs.getString("choice4"));
+        if(rs.getString("correct_ans").equals("choice1"))
+        quesBean.setAns(quesBean.getCh1());
+        else if(rs.getString("correct_ans").equals("choice2"))
+        quesBean.setAns(quesBean.getCh2());
+        else if(rs.getString("correct_ans").equals("choice3"))
+        quesBean.setAns(quesBean.getCh3());
+        else
+        quesBean.setAns(quesBean.getCh4());
+        quesBean.setDiff(rs.getString("diff_level"));
+        quesBean.setAttempted(3);
+        quesBean.setStudentChoice("choice5");
+        quesBean.setIsCorrect(3);
+        quesBean.setTopicName(rs.getString("topicname"));
+        if(quesBean.getDiff().equals("low"))
+        quesList1.add(quesBean);
+        else if(quesBean.getDiff().equals("medium"))
+        quesList2.add(quesBean);
+        else if(quesBean.getDiff().equals("high"))
+        quesList3.add(quesBean);
+      }
+      session.setAttribute("quesList1",quesList1);
+      session.setAttribute("quesList2",quesList2);
+      session.setAttribute("quesList3",quesList3);
+      session.setAttribute("i",0);
+      session.setAttribute("j",0);
+      session.setAttribute("k",0);
+      return true;
+    }catch(Exception e){return false;}
+    finally{
+      try{
+        rs.close();
+      }
+      catch(Exception e){}
+      try{
+        st.close();
+      }
+      catch(Exception e){}
+      return true;
+    }
+  }
+  }
+}

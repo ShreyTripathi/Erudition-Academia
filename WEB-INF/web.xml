@@ -58,4 +58,36 @@
    <servlet-name>enterTopic</servlet-name>
    <url-pattern>/nextQues</url-pattern>
   </servlet-mapping>
+  <servlet>
+   <servlet-name>enterTopic1</servlet-name>
+   <servlet-class>EnterTopic1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>enterTopic1</servlet-name>
+   <url-pattern>/nextQues1</url-pattern>
+  </servlet-mapping>
+  <servlet>
+   <servlet-name>imageUpload</servlet-name>
+   <servlet-class>ImageUploadServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+   <servlet-name>imageUpload</servlet-name>
+   <url-pattern>/imageUpload</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>myNextQues</servlet-name>
+    <servlet-class>MyNextQues</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>myNextQues</servlet-name>
+    <url-pattern>/next</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>myEnterTopic</servlet-name>
+    <servlet-class>MyEnterTopic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>myEnterTopic</servlet-name>
+    <url-pattern>/enter</url-pattern>
+  </servlet-mapping>
 </web-app>

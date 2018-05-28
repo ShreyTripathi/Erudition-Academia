@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*"%>
+<%if(session.getAttribute("uId")==null)response.sendRedirect("login.jsp");%>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,11 +17,11 @@
 		</div>
 	<%
 	}
-	
+
 	String dbName = "modif_eru_acad";
 	String user= "root";
 	String pass= "root";
-				
+
 	String topic_name = request.getParameter("topic");
 	Connection con = null;
 	Statement st1 = null;
@@ -37,7 +38,7 @@
 		diff = session.getAttribute("diff_level").toString();
 	}
 
-	try{	
+	try{
 		Class.forName("com.mysql.jdbc.Driver");
 		con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 
@@ -69,7 +70,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -90,7 +91,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -111,7 +112,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -122,10 +123,10 @@
 				session.setAttribute("topic_name",topic_name);
 			%>
 				<p>Thank you for Taking The Quiz.</p>
-				<table>				
+				<table>
 				<tr><td>Score: </td><td><%=session.getAttribute("score").toString()%></td></tr>
 				<tr><td><a href="analysis.jsp">See Analysis of Quiz</a></td></tr>
-				</table>	
+				</table>
 				<%}
 			}
 			else if(ans_st.equals("correct")&&diff.equals("medium"))
@@ -147,7 +148,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -157,7 +158,7 @@
 				%>
 				<form action="quiz_logic.jsp" method="post">
 				<table>
-				<tr><td>Question : </td>		
+				<tr><td>Question : </td>
 				<td><%=rs2.getString("det")%></td><td><%=diff%></td></tr>
 				<tr><td></td><td><input type="radio" name="answer" value="choice1"></td><td><%=rs2.getString("choice1")%></td></tr>
 				<tr><td></td><td><input type="radio" name="answer" value="choice2"></td><td><%=rs2.getString("choice2")%></td></tr>
@@ -168,7 +169,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -189,7 +190,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -200,11 +201,11 @@
 				session.setAttribute("topic_name",topic_name);
 			%>
 				<p>Thank you for Taking The Quiz.</p>
-				<table>				
+				<table>
 				<tr><td>Score: </td><td><%=session.getAttribute("score").toString()%></td></tr>
 				<tr><td><a href="analysis.jsp">See Analysis of Quiz</a></td></tr>
-				</table>	
-				<%}					
+				</table>
+				<%}
 			}
 			else if(ans_st.equals("incorrect")&&diff.equals("medium"))
 			{
@@ -225,14 +226,14 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
 				else if(rs2.next())
 				{
 				diff = rs2.getString("diff_level");
-				%>		
+				%>
 				<form action="quiz_logic.jsp" method="post">
 				<table>
 				<tr><td>Question : </td>
@@ -262,7 +263,7 @@
 				session.setAttribute("diff_level",diff);
 				%>
 				<tr><td><input type="submit" value="submit"></td></tr>
-				</table>				
+				</table>
 				</form>
 				<%
 				}
@@ -273,10 +274,10 @@
 				session.setAttribute("topic_name",topic_name);
 			%>
 				<p>Thank you for Taking The Quiz.</p>
-				<table>				
+				<table>
 				<tr><td>Score: </td><td><%=session.getAttribute("score").toString()%></td></tr>
 				<tr><td><a href="analysis.jsp">See Analysis of Quiz</a></td></tr>
-				</table>	
+				</table>
 				<%}
 			}
 	}
@@ -287,12 +288,12 @@
 			session.setAttribute("topic_name",topic_name);
 			%>
 			<p>Thank you for Taking The Quiz.</p>
-			<table>				
+			<table>
 			<tr><td>Score: </td><td><%=session.getAttribute("score").toString()%></td></tr>
 			<tr><td><a href="analysis.jsp">See Analysis of Quiz</a></td></tr>
-			</table>	
+			</table>
 		<%
-		}	
+		}
 	}catch(Exception e){
 
 		e.printStackTrace();

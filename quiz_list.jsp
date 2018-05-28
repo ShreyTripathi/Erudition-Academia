@@ -1,4 +1,5 @@
 <%@ page import="java.sql.*"%>
+<%if(session.getAttribute("uId")==null)response.sendRedirect("login.jsp");%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -140,29 +141,6 @@ try{
   videoRs = videoSt.executeQuery("select * from content where courseid='"+courseId+"' and filetype='video' order by unitname");
   int i=1,flag=0;
   %>
-  <!--Commented Code-->
-
-  <!--<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="#">Logo</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-        </ul>
-      </div>
-      </div>
-    </div>
-  </nav>-->
-
   <!--Code Begins-->
 
   <jsp:include page="navbar_public.jsp" />
@@ -221,7 +199,7 @@ try{
           %>
           </tbody>
 					</table>
-				<form action="/nextQues" method="post" id="topicForm">
+				<form action="/enter" method="post" id="topicForm">
         <input type="hidden" name="courseId" value="<%=courseId%>">
 				<input type="hidden" name="topicId" id="topicId">
 				</form>
