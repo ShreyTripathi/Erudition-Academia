@@ -43,13 +43,12 @@
 		{
 			session.removeAttribute("fPath");
 			session.removeAttribute("unit");
-			session.removeAttribute("fName");
 		}
 
 		if(rs.next())
 		{	
      %> 
-	<h1>SELECT FILES FOR THE UNITS BEING TAUGHT IN THE COURSE:<br><%=rs.getString("coursename")%></h1>
+	<h1>SELECT FILES FOR THE UNITS BEING TAUGHT IN THE COURSE:<%=rs.getString("coursename")%></h1>
         <form action="/fileuploadexample" method="post" enctype="multipart/form-data">
            <table>	    
 	    <tr><td><label for="fileName1">Select File for UNIT 1: </label></td></tr>

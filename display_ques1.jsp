@@ -6,9 +6,14 @@
   <title>Quiz</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="jquery-3.3.1.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
   <style>
     /* Remove the navbar's default margin-bottom and rounded borders */
     .navbar {
@@ -199,8 +204,9 @@ try{
       %>
 				<form action="/next" method="post" id="topicForm">
         <table>
-        <tr><td>Difficulty: <%=quesBean.getDiff()%></td></tr>
-        <tr><td style="whitespace:pre-wrap;"><h2>Question</h2><%=quesBean.getQuesDet()%></td></tr>
+        <tr><td><b><u>Difficulty</u>:</b> <span style="color:blue;"><i><%=quesBean.getDiff()%></i></span></td></tr>
+        <tr><td style="whitespace:pre-wrap;"><h2><u>Question</u></h2><%=quesBean.getQuesDet()%></td></tr>
+        <tr></tr>
         <tr><td><input type="hidden" name="courseId" value="<%=courseId%>"></td></tr>
         <tr><td><input type="hidden" name="topicId" value="<%=topicId%>"></td></tr>
         <tr><td><input type="hidden" name="diff_level" value="<%=quesBean.getDiff()%>">

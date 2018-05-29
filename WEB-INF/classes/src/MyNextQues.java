@@ -34,9 +34,12 @@ public class MyNextQues extends HttpServlet{
     String courseId = request.getParameter("courseId");
     session = request.getSession(false);
 
-    if(session.getAttribute("uId")==null)
+    if(session==null||session.getAttribute("uId")==null)
       response.sendRedirect("login.jsp");
-
+    if(session.getAttribute("type").toString().equals("faculty"))
+    {
+        response.sendRedirect("fac_dash.jsp");
+    }
     if(session.getAttribute("highL")!=null)
       highL = (ArrayList<Integer>)session.getAttribute("highL");
     if(session.getAttribute("medL")!=null)

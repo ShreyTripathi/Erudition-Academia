@@ -36,7 +36,10 @@ public class MyEnterTopic extends HttpServlet{
     {
       response.sendRedirect("login.jsp");
     }
-
+    if(session.getAttribute("type").toString().equals("faculty"))
+    {
+      response.sendRedirect("fac_dash.jsp");
+    }
     if(session.getAttribute("highL")!=null)
     {
       session.removeAttribute("highL");

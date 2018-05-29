@@ -2,9 +2,15 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="bootstrap-3.3.7/css/bootstrap.min.css">
+
+  <!-- jQuery library -->
+  <script src="jquery-3.3.1.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
 <style>
 .main_text{
   font-size: 1.4em;
@@ -88,21 +94,21 @@ $(document).ready(function(){
 
         <h1>Doubts Table</h1>
         <p style="font-size:1.2em">CourseId: <%=courseId%></p>
+        <form id="answer_form" action="answer_doubt.jsp" method="post">
+        <input type="hidden" name="answer" id="submit_answer">
         <table class="table table-bordered">
         <thead><tr><th>Doubt No.</th><th>Topic</th><th>Content</th><th>Date</th><th>Answer</th></tr></thead>
         <tbody>
       <%
         do{
+            int doubtid  = rs1.getInt("doubtid");
           %>
-            <tr hidden><td class="doubtId"><%=rs1.getString("doubtid")%></td></tr><tr><td><%=i%></td><td><%=rs1.getString("doubtheading")%></td><td><%=rs1.getString("content")%></td><td><%=rs1.getString("dated")%></td><td><textarea class="my_answer" cols="55" rows="3" required="required"></textarea></td><td><button class="my_button">Submit Answer</button></td></tr>
+            <tr><input type="hidden" name="doubtId" id="<%=doubtid%>" value="<%=doubtid%>"></td></tr><tr><td><%=i%></td><td><%=rs1.getString("doubtheading")%></td><td><%=rs1.getString("content")%></td><td><%=rs1.getString("dated")%></td><td><textarea class="my_answer" cols="55" rows="3" required="required"></textarea></td><td><input type="submit" value="submit"></td></tr>
         <%i++;
       }while(rs1.next());
         %>
         </tbody>
         </table>
-        <form id="answer_form" action="answer_doubt.jsp" method="post">
-        <input type="hidden" name="answer" id="submit_answer">
-        <input type="hidden" name="doubtId" id="doubtid">
         </form>
       <%}//end of if
       else{%>

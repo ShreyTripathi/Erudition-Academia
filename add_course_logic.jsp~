@@ -36,6 +36,9 @@
 			<div class="alert alert-danger">There might be a problem while connecting with the <strong>database. </strong></div>
 		<%
 			out.println(e);
+		%>
+			<div> <a href="add_course.jsp">Go Back</a></div>
+		<%
 		}
 		finally{
 			try{

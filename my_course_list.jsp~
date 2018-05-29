@@ -17,10 +17,11 @@ $(document).ready(function(){
 	});
 });
 </script>
+<title>Course List</title>
 </head>
 <body>
-<div class="container">
 <jsp:include page="navbar_public.jsp" />
+<div class="container">
 <%
 		Connection con = null;
 		Statement st = null;
@@ -31,8 +32,8 @@ $(document).ready(function(){
 		String user= "root";
 		String pass= "root";
 
-		int i=0;			
-		try{	
+		int i=0;
+		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
 			st = con.createStatement();
@@ -43,12 +44,13 @@ $(document).ready(function(){
 			{
 				%>
 					    <div class="col-md-4">
-					      <div class="thumbnail">					     					          	<img src="ea.jpeg" alt="Web Dev" style="width:100%">
+					      <div class="thumbnail">
+						<img src="ea.jpeg" alt="Erudition Academia" style="width:100%">
 					          <div class="caption">
 						    <p style="text-align:right;" class="cId"><%=rs.getString("courseid")%></p>
 					            <p><%=rs.getString("coursename")%></p>
 					            <p><%=rs.getString("ffname")%> <%=rs.getString("flname")%></p>
-					          </div>					     
+					          </div>
 					      </div>
 					    </div>
 				<%
@@ -56,33 +58,35 @@ $(document).ready(function(){
 				{
 					%>
 						    <div class="col-md-4">
-						      <div class="thumbnail">					     						          	<img src="ea.jpeg" alt="Web Dev" style="width:100%">
+						      <div class="thumbnail">
+						        <img src="ea.jpeg" alt="Erudition Academia" style="width:100%">
 						          <div class="caption">
 							    <p style="text-align:right;" class="cId"><%=rs.getString("courseid")%></p>
 						            <p><%=rs.getString("coursename")%></p>
 						            <p><%=rs.getString("ffname")%> <%=rs.getString("flname")%></p>
-						          </div>					     
+						          </div>
 						      </div>
 						    </div>
 					<%
-				
+
 				}//end of while
 			}//end of if
 			else{%>
-				<div class="alert alert-warning">There are no quizzes uploaded yet.</div>
-			<%}
-			if(session.getAttribute("uId")!=null)
-			{
-			%>
-				<br><a href="stud_dash.jsp">Go Back</a>
-			<%}
-			else
-			{%>
-				<a href="login.jsp">Go Back</a>
-			<%}
+				<div class="alert alert-warning">There are no courses uploaded yet.</div>
+			<%
+				if(session.getAttribute("uId")!=null)
+				{
+				%>
+					<br><a href="stud_dash.jsp">Go Back</a>
+				<%}
+				else
+				{%>
+					<a href="login.jsp">Go Back</a>
+				<%}
 
+			}
 			%>
-			<form action="course_det_view.jsp" method="get" id="form1">
+			<form action="course_det_view1.jsp" method="get" id="form1">
 			<input type="hidden" name="courseId" id="courseId">
 			</form>
 		<%

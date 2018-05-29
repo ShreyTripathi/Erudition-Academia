@@ -32,7 +32,7 @@
       response.sendRedirect("login.jsp");
 
     String doubtId = request.getParameter("doubtId");
-    String answer =request.getParameter("answer");
+    String answer =request.getParameter("my_answer");
 		try{
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+dbName,user,pass);
